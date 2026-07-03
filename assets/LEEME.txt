@@ -1,0 +1,37 @@
+CÓMO PUBLICAR TU PORTAFOLIO EN GITHUB PAGES
+============================================
+
+Esta carpeta contiene el sitio completo, listo para publicar.
+No hace falta modificar nada.
+
+PASOS (5 minutos):
+
+1. Entra en https://github.com/new
+   - Repository name: portafolio-geraldine
+   - Marca "Public"
+   - Pulsa "Create repository"
+
+2. En la página del repositorio:
+   - Pulsa "uploading an existing file" (o Add file → Upload files)
+   - Arrastra TODO el contenido de esta carpeta
+     (index.html, support.js y la carpeta assets completa)
+   - Pulsa "Commit changes" y espera a que termine de subir
+     (los videos tardan un poco)
+
+3. Activa GitHub Pages:
+   - Settings → Pages (menú lateral izquierdo)
+   - En "Source" elige: Deploy from a branch
+   - Branch: main  /  Folder: / (root)
+   - Pulsa "Save"
+
+4. Espera 1-2 minutos y tu sitio estará en:
+   https://TUUSUARIO.github.io/portafolio-geraldine/
+
+   (reemplaza TUUSUARIO por tu nombre de usuario de GitHub)
+
+NOTAS:
+- Para actualizar el sitio, sube de nuevo el archivo cambiado y
+  GitHub Pages se actualiza solo en ~1 minuto.
+- El botón "Portafolio" y "Currículum" enlazan a tus PDF en Google
+  Drive; asegúrate de que sigan compartidos como
+  "Cualquier persona con el enlace".
