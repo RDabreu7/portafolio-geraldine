@@ -31,6 +31,7 @@
   @keyframes rippleFx{from{transform:scale(0);opacity:.32}to{transform:scale(2.8);opacity:0}}
   @keyframes mIn{from{opacity:0;transform:translateY(22px) scale(.965)}to{opacity:1;transform:none}}
   @keyframes mOut{from{opacity:1;transform:none}to{opacity:0;transform:translateY(14px) scale(.975)}}
+  @keyframes gIn{from{opacity:0;transform:scale(.92);filter:blur(14px)}to{opacity:1;transform:scale(1);filter:blur(0)}}
   [data-modal-scroll]::-webkit-scrollbar{display:none}
   @keyframes bIn{from{opacity:0}to{opacity:1}}
   @keyframes bOut{from{opacity:1}to{opacity:0}}
@@ -69,13 +70,15 @@
 
   <!-- ============ FLOATING NAV ============ -->
   <div data-nav-wrap style="position:sticky;top:14px;z-index:100;display:flex;justify-content:center;padding:0 14px;margin-top:-30px;transition:transform .5s cubic-bezier(.2,.75,.2,1),opacity .4s ease">
-    <nav aria-label="Navegación principal" style="display:flex;align-items:center;gap:2px;padding:7px;border-radius:999px;background:var(--glass);backdrop-filter:blur(20px) saturate(1.5);-webkit-backdrop-filter:blur(20px) saturate(1.5);border:1px solid var(--line);box-shadow:var(--shadow);max-width:100%;overflow-x:auto;transition:background .6s ease,border-color .6s ease">
-      <a href="#inicio" data-nav="inicio" data-ripple style="position:relative;padding:9px 15px;border-radius:999px;font-size:13.5px;font-weight:600;color:var(--text2);text-decoration:none;white-space:nowrap;transition:color .3s,background .3s" style-hover="color:var(--text)">Inicio<span data-underline style="position:absolute;left:15px;right:15px;bottom:4px;height:2px;border-radius:2px;background:var(--acc);transform:scaleX(0);transform-origin:left;transition:transform .35s cubic-bezier(.2,.75,.2,1)"></span></a>
-      <a href="#sobre-mi" data-nav="sobre-mi" data-ripple style="position:relative;padding:9px 15px;border-radius:999px;font-size:13.5px;font-weight:600;color:var(--text2);text-decoration:none;white-space:nowrap;transition:color .3s,background .3s" style-hover="color:var(--text)">Sobre mí<span data-underline style="position:absolute;left:15px;right:15px;bottom:4px;height:2px;border-radius:2px;background:var(--acc);transform:scaleX(0);transform-origin:left;transition:transform .35s cubic-bezier(.2,.75,.2,1)"></span></a>
-      <a href="#proyectos" data-nav="proyectos" data-ripple style="position:relative;padding:9px 15px;border-radius:999px;font-size:13.5px;font-weight:600;color:var(--text2);text-decoration:none;white-space:nowrap;transition:color .3s,background .3s" style-hover="color:var(--text)">Proyectos<span data-underline style="position:absolute;left:15px;right:15px;bottom:4px;height:2px;border-radius:2px;background:var(--acc);transform:scaleX(0);transform-origin:left;transition:transform .35s cubic-bezier(.2,.75,.2,1)"></span></a>
-      <a href="#experiencia" data-nav="experiencia" data-ripple style="position:relative;padding:9px 15px;border-radius:999px;font-size:13.5px;font-weight:600;color:var(--text2);text-decoration:none;white-space:nowrap;transition:color .3s,background .3s" style-hover="color:var(--text)">Experiencia<span data-underline style="position:absolute;left:15px;right:15px;bottom:4px;height:2px;border-radius:2px;background:var(--acc);transform:scaleX(0);transform-origin:left;transition:transform .35s cubic-bezier(.2,.75,.2,1)"></span></a>
-      <a href="#habilidades" data-nav="habilidades" data-ripple style="position:relative;padding:9px 15px;border-radius:999px;font-size:13.5px;font-weight:600;color:var(--text2);text-decoration:none;white-space:nowrap;transition:color .3s,background .3s" style-hover="color:var(--text)">Habilidades<span data-underline style="position:absolute;left:15px;right:15px;bottom:4px;height:2px;border-radius:2px;background:var(--acc);transform:scaleX(0);transform-origin:left;transition:transform .35s cubic-bezier(.2,.75,.2,1)"></span></a>
-      <a href="#contacto" data-nav="contacto" data-ripple style="position:relative;padding:9px 15px;border-radius:999px;font-size:13.5px;font-weight:600;color:var(--text2);text-decoration:none;white-space:nowrap;transition:color .3s,background .3s" style-hover="color:var(--text)">Contacto<span data-underline style="position:absolute;left:15px;right:15px;bottom:4px;height:2px;border-radius:2px;background:var(--acc);transform:scaleX(0);transform-origin:left;transition:transform .35s cubic-bezier(.2,.75,.2,1)"></span></a>
+    <nav aria-label="Navegación principal" style="display:flex;align-items:center;gap:2px;padding:7px;border-radius:999px;background:var(--glass);backdrop-filter:blur(20px) saturate(1.5);-webkit-backdrop-filter:blur(20px) saturate(1.5);border:1px solid var(--line);box-shadow:var(--shadow);max-width:100%;transition:background .6s ease,border-color .6s ease">
+      <div data-navscroll style="display:flex;align-items:center;gap:2px;min-width:0;overflow-x:auto;scrollbar-width:none">
+      <a href="#inicio" data-nav="inicio" data-ripple style="flex:none;position:relative;padding:9px 15px;border-radius:999px;font-size:13.5px;font-weight:600;color:var(--text2);text-decoration:none;white-space:nowrap;transition:color .3s,background .3s" style-hover="color:var(--text)">Inicio<span data-underline style="position:absolute;left:15px;right:15px;bottom:4px;height:2px;border-radius:2px;background:var(--acc);transform:scaleX(0);transform-origin:left;transition:transform .35s cubic-bezier(.2,.75,.2,1)"></span></a>
+      <a href="#sobre-mi" data-nav="sobre-mi" data-ripple style="flex:none;position:relative;padding:9px 15px;border-radius:999px;font-size:13.5px;font-weight:600;color:var(--text2);text-decoration:none;white-space:nowrap;transition:color .3s,background .3s" style-hover="color:var(--text)">Sobre mí<span data-underline style="position:absolute;left:15px;right:15px;bottom:4px;height:2px;border-radius:2px;background:var(--acc);transform:scaleX(0);transform-origin:left;transition:transform .35s cubic-bezier(.2,.75,.2,1)"></span></a>
+      <a href="#proyectos" data-nav="proyectos" data-ripple style="flex:none;position:relative;padding:9px 15px;border-radius:999px;font-size:13.5px;font-weight:600;color:var(--text2);text-decoration:none;white-space:nowrap;transition:color .3s,background .3s" style-hover="color:var(--text)">Proyectos<span data-underline style="position:absolute;left:15px;right:15px;bottom:4px;height:2px;border-radius:2px;background:var(--acc);transform:scaleX(0);transform-origin:left;transition:transform .35s cubic-bezier(.2,.75,.2,1)"></span></a>
+      <a href="#habilidades" data-nav="habilidades" data-ripple style="flex:none;position:relative;padding:9px 15px;border-radius:999px;font-size:13.5px;font-weight:600;color:var(--text2);text-decoration:none;white-space:nowrap;transition:color .3s,background .3s" style-hover="color:var(--text)">Habilidades<span data-underline style="position:absolute;left:15px;right:15px;bottom:4px;height:2px;border-radius:2px;background:var(--acc);transform:scaleX(0);transform-origin:left;transition:transform .35s cubic-bezier(.2,.75,.2,1)"></span></a>
+      <a href="#experiencia" data-nav="experiencia" data-ripple style="flex:none;position:relative;padding:9px 15px;border-radius:999px;font-size:13.5px;font-weight:600;color:var(--text2);text-decoration:none;white-space:nowrap;transition:color .3s,background .3s" style-hover="color:var(--text)">Experiencia<span data-underline style="position:absolute;left:15px;right:15px;bottom:4px;height:2px;border-radius:2px;background:var(--acc);transform:scaleX(0);transform-origin:left;transition:transform .35s cubic-bezier(.2,.75,.2,1)"></span></a>
+      <a href="#contacto" data-nav="contacto" data-ripple style="flex:none;position:relative;padding:9px 15px;border-radius:999px;font-size:13.5px;font-weight:600;color:var(--text2);text-decoration:none;white-space:nowrap;transition:color .3s,background .3s" style-hover="color:var(--text)">Contacto<span data-underline style="position:absolute;left:15px;right:15px;bottom:4px;height:2px;border-radius:2px;background:var(--acc);transform:scaleX(0);transform-origin:left;transition:transform .35s cubic-bezier(.2,.75,.2,1)"></span></a>
+      </div>
       <button type="button" onClick="{{ toggleTheme }}" data-ripple aria-label="Cambiar tema" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;margin-left:4px;border-radius:999px;border:1px solid var(--line);background:var(--accSoft);color:var(--accInk);cursor:pointer;flex:none;transition:transform .4s,background .3s,color .6s" style-hover="transform:rotate(18deg)">
         <sc-if value="{{ isDark }}" hint-placeholder-val="{{ false }}">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"></path></svg>
@@ -238,14 +241,14 @@
       <h2 style="margin:0 0 28px;font-size:clamp(28px,3.6vw,40px);font-weight:800;letter-spacing:-0.02em">Habilidades y <em style="font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--accInk)">software</em></h2>
     </div>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(118px,1fr));gap:clamp(12px,1.6vw,18px)">
-      <div data-glow style="position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;gap:12px;padding:22px 12px;background:var(--card);border:1px solid var(--line);border-radius:20px;transition:transform .45s cubic-bezier(.2,.75,.2,1),box-shadow .45s,background .6s ease" style-hover="transform:translateY(-6px);box-shadow:var(--shadow)"><div data-glowlayer style="position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .45s ease"></div><img src="assets/images/icons/sketchup.png" alt="" loading="lazy" style="width:50px;height:50px;object-fit:contain;border-radius:12px"><span style="font-size:13px;font-weight:700">SketchUp</span></div>
-      <div data-glow style="position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;gap:12px;padding:22px 12px;background:var(--card);border:1px solid var(--line);border-radius:20px;transition:transform .45s cubic-bezier(.2,.75,.2,1),box-shadow .45s,background .6s ease" style-hover="transform:translateY(-6px);box-shadow:var(--shadow)"><div data-glowlayer style="position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .45s ease"></div><img src="assets/images/icons/enscape.png" alt="" loading="lazy" style="width:50px;height:50px;object-fit:contain;border-radius:12px"><span style="font-size:13px;font-weight:700">Enscape</span></div>
-      <div data-glow style="position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;gap:12px;padding:22px 12px;background:var(--card);border:1px solid var(--line);border-radius:20px;transition:transform .45s cubic-bezier(.2,.75,.2,1),box-shadow .45s,background .6s ease" style-hover="transform:translateY(-6px);box-shadow:var(--shadow)"><div data-glowlayer style="position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .45s ease"></div><img src="assets/images/icons/lumion.png" alt="" loading="lazy" style="width:50px;height:50px;object-fit:contain;border-radius:12px"><span style="font-size:13px;font-weight:700">Lumion</span></div>
-      <div data-glow style="position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;gap:12px;padding:22px 12px;background:var(--card);border:1px solid var(--line);border-radius:20px;transition:transform .45s cubic-bezier(.2,.75,.2,1),box-shadow .45s,background .6s ease" style-hover="transform:translateY(-6px);box-shadow:var(--shadow)"><div data-glowlayer style="position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .45s ease"></div><img src="assets/images/icons/photoshop.png" alt="" loading="lazy" style="width:50px;height:50px;object-fit:contain;border-radius:12px"><span style="font-size:13px;font-weight:700">Photoshop</span></div>
-      <div data-glow style="position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;gap:12px;padding:22px 12px;background:var(--card);border:1px solid var(--line);border-radius:20px;transition:transform .45s cubic-bezier(.2,.75,.2,1),box-shadow .45s,background .6s ease" style-hover="transform:translateY(-6px);box-shadow:var(--shadow)"><div data-glowlayer style="position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .45s ease"></div><img src="assets/images/icons/capcut.png" alt="" loading="lazy" style="width:50px;height:50px;object-fit:contain;border-radius:12px"><span style="font-size:13px;font-weight:700">CapCut</span></div>
-      <div data-glow style="position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;gap:12px;padding:22px 12px;background:var(--card);border:1px solid var(--line);border-radius:20px;transition:transform .45s cubic-bezier(.2,.75,.2,1),box-shadow .45s,background .6s ease" style-hover="transform:translateY(-6px);box-shadow:var(--shadow)"><div data-glowlayer style="position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .45s ease"></div><img src="assets/images/icons/excel.png" alt="" loading="lazy" style="width:50px;height:50px;object-fit:contain;border-radius:12px"><span style="font-size:13px;font-weight:700">Excel</span></div>
-      <div data-glow style="position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;gap:12px;padding:22px 12px;background:var(--card);border:1px solid var(--line);border-radius:20px;transition:transform .45s cubic-bezier(.2,.75,.2,1),box-shadow .45s,background .6s ease" style-hover="transform:translateY(-6px);box-shadow:var(--shadow)"><div data-glowlayer style="position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .45s ease"></div><img src="assets/images/icons/powerpoint.png" alt="" loading="lazy" style="width:50px;height:50px;object-fit:contain;border-radius:12px"><span style="font-size:13px;font-weight:700">PowerPoint</span></div>
-      <div data-glow style="position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;gap:12px;padding:22px 12px;background:var(--card);border:1px solid var(--line);border-radius:20px;transition:transform .45s cubic-bezier(.2,.75,.2,1),box-shadow .45s,background .6s ease" style-hover="transform:translateY(-6px);box-shadow:var(--shadow)"><div data-glowlayer style="position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .45s ease"></div><img src="assets/images/icons/word.png" alt="" loading="lazy" style="width:50px;height:50px;object-fit:contain;border-radius:12px"><span style="font-size:13px;font-weight:700">Word</span></div>
+      <div data-glow role="button" tabindex="0" onClick="{{ openSkill }}" onKeyDown="{{ keyOpenSkill }}" style="cursor:pointer;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;gap:12px;padding:22px 12px;background:var(--card);border:1px solid var(--line);border-radius:20px;transition:transform .45s cubic-bezier(.2,.75,.2,1),box-shadow .45s,background .6s ease" style-hover="transform:translateY(-6px);box-shadow:var(--shadow)" style-focus="outline:2px solid var(--acc);outline-offset:3px"><div data-glowlayer style="position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .45s ease"></div><img src="assets/images/icons/sketchup.png" alt="" loading="lazy" style="width:50px;height:50px;object-fit:contain;border-radius:12px"><span style="font-size:13px;font-weight:700">SketchUp</span></div>
+      <div data-glow role="button" tabindex="0" onClick="{{ openSkill }}" onKeyDown="{{ keyOpenSkill }}" style="cursor:pointer;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;gap:12px;padding:22px 12px;background:var(--card);border:1px solid var(--line);border-radius:20px;transition:transform .45s cubic-bezier(.2,.75,.2,1),box-shadow .45s,background .6s ease" style-hover="transform:translateY(-6px);box-shadow:var(--shadow)" style-focus="outline:2px solid var(--acc);outline-offset:3px"><div data-glowlayer style="position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .45s ease"></div><img src="assets/images/icons/enscape.png" alt="" loading="lazy" style="width:50px;height:50px;object-fit:contain;border-radius:12px"><span style="font-size:13px;font-weight:700">Enscape</span></div>
+      <div data-glow role="button" tabindex="0" onClick="{{ openSkill }}" onKeyDown="{{ keyOpenSkill }}" style="cursor:pointer;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;gap:12px;padding:22px 12px;background:var(--card);border:1px solid var(--line);border-radius:20px;transition:transform .45s cubic-bezier(.2,.75,.2,1),box-shadow .45s,background .6s ease" style-hover="transform:translateY(-6px);box-shadow:var(--shadow)" style-focus="outline:2px solid var(--acc);outline-offset:3px"><div data-glowlayer style="position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .45s ease"></div><img src="assets/images/icons/lumion.png" alt="" loading="lazy" style="width:50px;height:50px;object-fit:contain;border-radius:12px"><span style="font-size:13px;font-weight:700">Lumion</span></div>
+      <div data-glow role="button" tabindex="0" onClick="{{ openSkill }}" onKeyDown="{{ keyOpenSkill }}" style="cursor:pointer;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;gap:12px;padding:22px 12px;background:var(--card);border:1px solid var(--line);border-radius:20px;transition:transform .45s cubic-bezier(.2,.75,.2,1),box-shadow .45s,background .6s ease" style-hover="transform:translateY(-6px);box-shadow:var(--shadow)" style-focus="outline:2px solid var(--acc);outline-offset:3px"><div data-glowlayer style="position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .45s ease"></div><img src="assets/images/icons/photoshop.png" alt="" loading="lazy" style="width:50px;height:50px;object-fit:contain;border-radius:12px"><span style="font-size:13px;font-weight:700">Photoshop</span></div>
+      <div data-glow role="button" tabindex="0" onClick="{{ openSkill }}" onKeyDown="{{ keyOpenSkill }}" style="cursor:pointer;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;gap:12px;padding:22px 12px;background:var(--card);border:1px solid var(--line);border-radius:20px;transition:transform .45s cubic-bezier(.2,.75,.2,1),box-shadow .45s,background .6s ease" style-hover="transform:translateY(-6px);box-shadow:var(--shadow)" style-focus="outline:2px solid var(--acc);outline-offset:3px"><div data-glowlayer style="position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .45s ease"></div><img src="assets/images/icons/capcut.png" alt="" loading="lazy" style="width:50px;height:50px;object-fit:contain;border-radius:12px"><span style="font-size:13px;font-weight:700">CapCut</span></div>
+      <div data-glow role="button" tabindex="0" onClick="{{ openSkill }}" onKeyDown="{{ keyOpenSkill }}" style="cursor:pointer;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;gap:12px;padding:22px 12px;background:var(--card);border:1px solid var(--line);border-radius:20px;transition:transform .45s cubic-bezier(.2,.75,.2,1),box-shadow .45s,background .6s ease" style-hover="transform:translateY(-6px);box-shadow:var(--shadow)" style-focus="outline:2px solid var(--acc);outline-offset:3px"><div data-glowlayer style="position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .45s ease"></div><img src="assets/images/icons/excel.png" alt="" loading="lazy" style="width:50px;height:50px;object-fit:contain;border-radius:12px"><span style="font-size:13px;font-weight:700">Excel</span></div>
+      <div data-glow role="button" tabindex="0" onClick="{{ openSkill }}" onKeyDown="{{ keyOpenSkill }}" style="cursor:pointer;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;gap:12px;padding:22px 12px;background:var(--card);border:1px solid var(--line);border-radius:20px;transition:transform .45s cubic-bezier(.2,.75,.2,1),box-shadow .45s,background .6s ease" style-hover="transform:translateY(-6px);box-shadow:var(--shadow)" style-focus="outline:2px solid var(--acc);outline-offset:3px"><div data-glowlayer style="position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .45s ease"></div><img src="assets/images/icons/powerpoint.png" alt="" loading="lazy" style="width:50px;height:50px;object-fit:contain;border-radius:12px"><span style="font-size:13px;font-weight:700">PowerPoint</span></div>
+      <div data-glow role="button" tabindex="0" onClick="{{ openSkill }}" onKeyDown="{{ keyOpenSkill }}" style="cursor:pointer;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;gap:12px;padding:22px 12px;background:var(--card);border:1px solid var(--line);border-radius:20px;transition:transform .45s cubic-bezier(.2,.75,.2,1),box-shadow .45s,background .6s ease" style-hover="transform:translateY(-6px);box-shadow:var(--shadow)" style-focus="outline:2px solid var(--acc);outline-offset:3px"><div data-glowlayer style="position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .45s ease"></div><img src="assets/images/icons/word.png" alt="" loading="lazy" style="width:50px;height:50px;object-fit:contain;border-radius:12px"><span style="font-size:13px;font-weight:700">Word</span></div>
     </div>
   </section>
 
@@ -327,6 +330,21 @@
       <div role="dialog" aria-modal="true" aria-label="{{ mTitle }}" data-modal-scroll style="position:relative;width:100%;max-width:840px;max-height:88vh;overflow-y:auto;scrollbar-width:none;background:var(--card);border:1px solid var(--line);border-radius:26px;box-shadow:var(--shadow);animation:{{ mAnim }}">
         <div style="position:relative;background:#0e0b16">
           <div data-gal-main style="position:relative;width:100%;height:clamp(230px,40vh,390px)"></div>
+          <sc-if value="{{ mGalZones }}" hint-placeholder-val="{{ false }}">
+            <button type="button" onClick="{{ galPrev }}" aria-label="Foto anterior" style="position:absolute;left:0;top:0;bottom:0;width:32%;z-index:3;display:flex;align-items:center;justify-content:flex-start;padding:0 0 0 14px;border:0;background:linear-gradient(90deg,rgba(10,8,18,.32),transparent);cursor:pointer;opacity:0;transition:opacity .35s ease" style-hover="opacity:1">
+              <span style="display:flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:999px;background:rgba(14,11,22,.5);border:1px solid rgba(255,255,255,.3);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:#fff">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg>
+              </span>
+            </button>
+            <button type="button" onClick="{{ galNext }}" aria-label="Foto siguiente" style="position:absolute;right:0;top:0;bottom:0;width:32%;z-index:3;display:flex;align-items:center;justify-content:flex-end;padding:0 14px 0 0;border:0;background:linear-gradient(270deg,rgba(10,8,18,.32),transparent);cursor:pointer;opacity:0;transition:opacity .35s ease" style-hover="opacity:1">
+              <span style="display:flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:999px;background:rgba(14,11,22,.5);border:1px solid rgba(255,255,255,.3);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:#fff">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg>
+              </span>
+            </button>
+          </sc-if>
+          <button type="button" onClick="{{ openBig }}" aria-label="Ver en grande" title="Ver en grande" style="position:absolute;top:14px;right:60px;z-index:4;display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:999px;border:1px solid rgba(255,255,255,.3);background:rgba(14,11,22,.45);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:#fff;cursor:pointer;transition:transform .3s,background .3s" style-hover="transform:scale(1.12);background:rgba(14,11,22,.7)">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3"></path><path d="M16 3h3a2 2 0 0 1 2 2v3"></path><path d="M8 21H5a2 2 0 0 1-2-2v-3"></path><path d="M16 21h3a2 2 0 0 0 2-2v-3"></path></svg>
+          </button>
           <button type="button" data-modal-close onClick="{{ closeModal }}" aria-label="Cerrar" style="position:absolute;top:14px;right:14px;display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:999px;border:1px solid rgba(255,255,255,.3);background:rgba(14,11,22,.45);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:#fff;cursor:pointer;transition:transform .3s,background .3s" style-hover="transform:rotate(90deg);background:rgba(14,11,22,.7)">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
           </button>
@@ -374,6 +392,42 @@
       </div>
     </div>
   </sc-if>
+
+  <!-- ============ VISTA GRANDE (GALERÍA) ============ -->
+  <sc-if value="{{ bigVisible }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;inset:0;z-index:300;background:rgba(8,6,14,.9);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);animation:bIn .35s ease">
+      <div data-gal-big style="position:absolute;inset:clamp(8px,3vw,44px);animation:gIn .55s cubic-bezier(.2,.75,.25,1)"></div>
+      <sc-if value="{{ mGalZones }}" hint-placeholder-val="{{ false }}">
+        <button type="button" onClick="{{ galPrev }}" aria-label="Foto anterior" style="position:absolute;left:0;top:0;bottom:0;width:24%;z-index:4;display:flex;align-items:center;justify-content:flex-start;padding:0 0 0 18px;border:0;background:linear-gradient(90deg,rgba(8,6,14,.4),transparent);cursor:pointer;opacity:0;transition:opacity .35s ease" style-hover="opacity:1">
+          <span style="display:flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:999px;background:rgba(14,11,22,.5);border:1px solid rgba(255,255,255,.3);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:#fff">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg>
+          </span>
+        </button>
+        <button type="button" onClick="{{ galNext }}" aria-label="Foto siguiente" style="position:absolute;right:0;top:0;bottom:0;width:24%;z-index:4;display:flex;align-items:center;justify-content:flex-end;padding:0 18px 0 0;border:0;background:linear-gradient(270deg,rgba(8,6,14,.4),transparent);cursor:pointer;opacity:0;transition:opacity .35s ease" style-hover="opacity:1">
+          <span style="display:flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:999px;background:rgba(14,11,22,.5);border:1px solid rgba(255,255,255,.3);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:#fff">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg>
+          </span>
+        </button>
+      </sc-if>
+      <button type="button" onClick="{{ closeBig }}" aria-label="Cerrar vista grande" style="position:absolute;top:16px;right:16px;z-index:5;display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:999px;border:1px solid rgba(255,255,255,.3);background:rgba(14,11,22,.5);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:#fff;cursor:pointer;transition:transform .3s,background .3s" style-hover="transform:rotate(90deg);background:rgba(14,11,22,.75)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+      </button>
+    </div>
+  </sc-if>
+
+  <!-- ============ MODAL HABILIDAD ============ -->
+  <sc-if value="{{ skillVisible }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ onSkillBackdrop }}" style="position:fixed;inset:0;z-index:250;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(12,9,20,.45);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);animation:bIn .3s ease">
+      <div role="dialog" aria-modal="true" aria-label="{{ skName }}" style="position:relative;width:100%;max-width:420px;background:var(--card);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);padding:30px;display:flex;flex-direction:column;gap:14px;align-items:flex-start;animation:mIn .45s cubic-bezier(.2,.75,.25,1)">
+        <div data-skill-icon style="width:56px;height:56px;border-radius:14px;overflow:hidden"></div>
+        <h3 style="margin:0;font-size:21px;font-weight:800;letter-spacing:-0.01em">{{ skName }}</h3>
+        <p style="margin:0;font-size:14.5px;line-height:1.75;color:var(--text2)">{{ skDesc }}</p>
+        <button type="button" onClick="{{ closeSkill }}" aria-label="Cerrar" style="position:absolute;top:14px;right:14px;display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:999px;border:1px solid var(--line);background:var(--accSoft);color:var(--accInk);cursor:pointer;transition:transform .3s" style-hover="transform:rotate(90deg)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+        </button>
+      </div>
+    </div>
+  </sc-if>
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{
@@ -382,7 +436,18 @@
   &quot;videoReel&quot;: {&quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;assets/videos/reel.mp4&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Contenido&quot;}
 }">
 class Component extends DCLogic {
-  state = { isDark: false, modal: null, closing: false, galIdx: 0, musicOn: false, musicAvailable: false, bioIdx: 0 };
+  state = { isDark: false, modal: null, closing: false, galIdx: 0, big: false, skill: null, musicOn: false, musicAvailable: false, bioIdx: 0 };
+
+  skills = [
+    { icon: 'assets/images/icons/sketchup.png', nombre: 'SketchUp', desc: 'Modelado 3D de espacios residenciales y comerciales, desarrollando propuestas de distribución, mobiliario y diseño interior.' },
+    { icon: 'assets/images/icons/enscape.png', nombre: 'Enscape', desc: 'Renderizado en tiempo real para generar visualizaciones fotorrealistas, recorridos virtuales y presentaciones de alta calidad.' },
+    { icon: 'assets/images/icons/lumion.png', nombre: 'Lumion', desc: 'Creación de renders y animaciones arquitectónicas con iluminación, materiales y paisajismo para presentar proyectos de forma más inmersiva.' },
+    { icon: 'assets/images/icons/photoshop.png', nombre: 'Adobe Photoshop', desc: 'Edición y postproducción de imágenes, composición de presentaciones, mejora de renders y desarrollo de material gráfico.' },
+    { icon: 'assets/images/icons/capcut.png', nombre: 'CapCut', desc: 'Edición de videos para presentar proyectos, recorridos virtuales y contenido audiovisual de manera dinámica.' },
+    { icon: 'assets/images/icons/excel.png', nombre: 'Microsoft Excel', desc: 'Organización de información, presupuestos, control de materiales y elaboración de tablas para la gestión de proyectos.' },
+    { icon: 'assets/images/icons/powerpoint.png', nombre: 'Microsoft PowerPoint', desc: 'Diseño de presentaciones profesionales para exponer proyectos, conceptos y propuestas de diseño.' },
+    { icon: 'assets/images/icons/word.png', nombre: 'Microsoft Word', desc: 'Elaboración de informes, memorias descriptivas, documentación técnica y presentación escrita de proyectos.' }
+  ];
 
   _bioList = ['assets/images/bio/bio-1.jpg', 'assets/images/bio/bio-2.jpg', 'assets/images/bio/bio-3.jpg', 'assets/images/bio/bio-4.jpg', 'assets/images/bio/bio-5.jpg'];
 
@@ -445,6 +510,8 @@ class Component extends DCLogic {
   renderVals() {
     const p = this.state.modal != null ? this.projects[this.state.modal] : null;
     const gal = p ? this._gal(p) : [];
+    const cur = gal.length ? gal[Math.min(this.state.galIdx, gal.length - 1)] : null;
+    const sk = this.state.skill != null ? this.skills[this.state.skill] : null;
     return {
       isDark: this.state.isDark,
       isLight: !this.state.isDark,
@@ -463,6 +530,28 @@ class Component extends DCLogic {
         etiqueta: (g.label ? g.label + ' · ' : '') + (g.tipo === '360' ? 'Vista 360°' : g.tipo === 'video' ? 'Video' : 'Imagen ' + (i + 1))
       })),
       mGalMulti: gal.length > 1,
+      mGalZones: gal.length > 1 && !!cur && cur.tipo === 'imagen',
+      galPrev: () => this._galNav(-1),
+      galNext: () => this._galNav(1),
+      bigVisible: this.state.big,
+      openBig: () => this.setState({ big: true }),
+      closeBig: () => this.setState({ big: false }),
+      skillVisible: this.state.skill != null,
+      skName: sk ? sk.nombre : '',
+      skDesc: sk ? sk.desc : '',
+      openSkill: (e) => {
+        const el = e.currentTarget;
+        this.setState({ skill: Array.from(el.parentElement.children).indexOf(el) });
+      },
+      keyOpenSkill: (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          const el = e.currentTarget;
+          this.setState({ skill: Array.from(el.parentElement.children).indexOf(el) });
+        }
+      },
+      closeSkill: () => this.setState({ skill: null }),
+      onSkillBackdrop: (e) => { if (e.target === e.currentTarget) this.setState({ skill: null }); },
       selectGal: (e) => this.setState({ galIdx: +e.currentTarget.dataset.gi }),
       bkAnim: this.state.closing ? 'bOut .28s ease forwards' : 'bIn .35s ease',
       mAnim: this.state.closing ? 'mOut .28s ease forwards' : 'mIn .5s cubic-bezier(.2,.75,.25,1)',
@@ -530,9 +619,22 @@ class Component extends DCLogic {
     return this._gals[p.slug] || [{ tipo: 'imagen', src: p.img }];
   }
 
-  // Mounts the active gallery item (image / video / 360 viewer) into the modal header
+  // Cycles the gallery with wrap-around
+  _galNav(dir) {
+    const p = this.state.modal != null ? this.projects[this.state.modal] : null;
+    if (!p) return;
+    const n = this._gal(p).length;
+    this.setState((s) => ({ galIdx: (s.galIdx + dir + n) % n }));
+  }
+
+  // Mounts the active gallery item into the modal header (and the big view when open)
   _renderGalMain() {
-    const holder = document.querySelector('[data-gal-main]');
+    this._renderGalInto('[data-gal-main]', false);
+    if (this.state.big) this._renderGalInto('[data-gal-big]', true);
+  }
+
+  _renderGalInto(sel, grande) {
+    const holder = document.querySelector(sel);
     if (!holder || this.state.modal == null) return;
     const gal = this._gal(this.projects[this.state.modal]);
     const item = gal[Math.min(this.state.galIdx, gal.length - 1)];
@@ -544,8 +646,8 @@ class Component extends DCLogic {
       const img = document.createElement('img');
       img.src = item.src;
       img.alt = this.projects[this.state.modal].title;
-      img.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .5s ease';
-      img.onload = () => { img.style.opacity = '1'; };
+      img.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:' + (grande ? 'contain' : 'cover') + ';opacity:0;filter:blur(16px) brightness(1.3);transform:scale(1.035);transition:opacity .55s ease,filter .8s ease,transform .9s ease';
+      img.onload = () => { img.style.opacity = '1'; img.style.filter = 'blur(0) brightness(1)'; img.style.transform = 'scale(1)'; };
       holder.appendChild(img);
     } else if (item.tipo === 'video') {
       // Local file if present; otherwise Drive's embedded player (streams without CORS)
@@ -586,6 +688,20 @@ class Component extends DCLogic {
 
   componentDidUpdate() {
     this._renderGalMain();
+    // Mount the skill icon imperatively (a template {{ }} src would fetch unresolved on first paint)
+    const ih = document.querySelector('[data-skill-icon]');
+    if (ih && this.state.skill != null) {
+      const src = this.skills[this.state.skill].icon;
+      if (ih.dataset.cur !== src) {
+        ih.dataset.cur = src;
+        ih.innerHTML = '';
+        const img = document.createElement('img');
+        img.src = src;
+        img.alt = '';
+        img.style.cssText = 'width:100%;height:100%;object-fit:contain';
+        ih.appendChild(img);
+      }
+    }
   }
 
   openModal(idx) {
@@ -597,13 +713,13 @@ class Component extends DCLogic {
   closeModal() {
     if (this.state.modal == null || this.state.closing) return;
     if (this.reducedMotion) {
-      this.setState({ modal: null, closing: false });
+      this.setState({ modal: null, closing: false, big: false });
       document.body.style.overflow = '';
       return;
     }
     this.setState({ closing: true });
     setTimeout(() => {
-      this.setState({ modal: null, closing: false });
+      this.setState({ modal: null, closing: false, big: false });
       document.body.style.overflow = '';
     }, 270);
   }
@@ -688,7 +804,40 @@ class Component extends DCLogic {
     let lastY = window.scrollY;
     const secs = Array.from(document.querySelectorAll('[data-sec]'));
     const items = Array.from(document.querySelectorAll('[data-nav]'));
+
+    // ---- Nav ribbon: fade the edge only where more items remain hidden ----
+    const navEl = document.querySelector('[data-navscroll]');
+    const updateMask = () => {
+      if (!navEl) return;
+      const max = navEl.scrollWidth - navEl.clientWidth;
+      const l = navEl.scrollLeft > 6;
+      const r = navEl.scrollLeft < max - 6;
+      let mask = '';
+      if (l && r) mask = 'linear-gradient(to right, transparent 0, #000 34px, #000 calc(100% - 34px), transparent 100%)';
+      else if (l) mask = 'linear-gradient(to right, transparent 0, #000 34px)';
+      else if (r) mask = 'linear-gradient(to right, #000 calc(100% - 34px), transparent 100%)';
+      navEl.style.maskImage = mask;
+      navEl.style.webkitMaskImage = mask;
+    };
+    if (navEl) {
+      navEl.addEventListener('scroll', updateMask, { passive: true });
+      window.addEventListener('resize', updateMask);
+      this._cleanup.push(() => { navEl.removeEventListener('scroll', updateMask); window.removeEventListener('resize', updateMask); });
+      updateMask();
+    }
+
     const setActive = (id) => {
+      // Keep the active item centered in the scrollable ribbon (mobile)
+      if (navEl && id !== this._lastNav) {
+        this._lastNav = id;
+        if (navEl.scrollWidth > navEl.clientWidth + 4) {
+          const act = items.find((x) => x.dataset.nav === id);
+          if (act) {
+            const left = act.getBoundingClientRect().left - navEl.getBoundingClientRect().left + navEl.scrollLeft;
+            navEl.scrollTo({ left: left - navEl.clientWidth / 2 + act.offsetWidth / 2, behavior: this.reducedMotion ? 'auto' : 'smooth' });
+          }
+        }
+      }
       items.forEach((it) => {
         const on = it.dataset.nav === id;
         it.style.color = on ? 'var(--accInk)' : 'var(--text2)';
@@ -797,7 +946,12 @@ class Component extends DCLogic {
     }
 
     // ---- Escape closes modal ----
-    const onKey = (e) => { if (e.key === 'Escape') this.closeModal(); };
+    const onKey = (e) => {
+      if (e.key !== 'Escape') return;
+      if (this.state.big) { this.setState({ big: false }); return; }
+      if (this.state.skill != null) { this.setState({ skill: null }); return; }
+      this.closeModal();
+    };
     document.addEventListener('keydown', onKey);
     this._cleanup.push(() => document.removeEventListener('keydown', onKey));
   }
