@@ -32,33 +32,60 @@
   @keyframes mIn{from{opacity:0;transform:translateY(22px) scale(.965)}to{opacity:1;transform:none}}
   @keyframes mOut{from{opacity:1;transform:none}to{opacity:0;transform:translateY(14px) scale(.975)}}
   @keyframes gIn{from{opacity:0;transform:scale(.92);filter:blur(14px)}to{opacity:1;transform:scale(1);filter:blur(0)}}
+  @keyframes firmaSweep{from{-webkit-mask-position:120% 0;mask-position:120% 0}to{-webkit-mask-position:0% 0;mask-position:0% 0}}
+  @keyframes preOut{to{opacity:0;filter:blur(12px);transform:scale(1.06);visibility:hidden}}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(24px);filter:blur(6px)}to{opacity:1;transform:none;filter:blur(0)}}
+  @keyframes briefIn{from{opacity:0;transform:translateY(14px);filter:blur(5px)}to{opacity:1;transform:none;filter:blur(0)}}
+  @keyframes holdPulse{0%{transform:scale(1);box-shadow:0 0 0 0 var(--glow)}70%{transform:scale(1.3);box-shadow:0 0 0 12px var(--glow)}100%{transform:scale(1.45);box-shadow:0 0 0 18px transparent}}
+  @keyframes letraIn{0%{opacity:0;filter:blur(12px);transform:translateY(12px) rotate(3deg) scale(1.18)}55%{opacity:1;filter:blur(0) drop-shadow(0 0 16px var(--glow));transform:translateY(-2px) rotate(-.5deg) scale(1.02)}100%{opacity:1;filter:blur(0);transform:none}}
+  @keyframes trazo{from{transform:scaleX(0);opacity:0}to{transform:scaleX(1);opacity:1}}
+  @keyframes pageIn{from{opacity:.35;transform:scale(1.06);filter:blur(14px) brightness(1.28)}to{opacity:1;transform:scale(1);filter:blur(0) brightness(1)}}
+  @keyframes pageInSoft{from{opacity:.3}to{opacity:1}}
+  @keyframes pageRipple{from{transform:scale(.15);opacity:.85}to{transform:scale(1);opacity:0}}
+  @keyframes shimmer{from{background-position:200% 0}to{background-position:-200% 0}}
   [data-modal-scroll]::-webkit-scrollbar{display:none}
   @keyframes bIn{from{opacity:0}to{opacity:1}}
   @keyframes bOut{from{opacity:1}to{opacity:0}}
   @media (prefers-reduced-motion: reduce){
     html{scroll-behavior:auto}
-    *,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important}
+    *,*::before,*::after{animation-duration:.01ms !important;animation-delay:0ms !important;transition-duration:.01ms !important}
   }
 </style>
 </helmet>
 
-<div style="min-height:100vh;overflow-x:clip;font-family:'Manrope',system-ui,sans-serif">
+<div style="min-height:100vh;overflow-x:clip;font-family:'Manrope',system-ui,sans-serif;animation:pageInSoft 1.15s cubic-bezier(.2,.75,.2,1) 4.15s">
+
+  <!-- ============ PRELOADER (FIRMA ANIMADA) ============ -->
+    <div data-preloader aria-hidden="true" style="position:fixed;inset:0;z-index:400;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;background:var(--bg)">
+      <p aria-label="Geraldine Olivar" style="margin:0;padding:0 20px;font-family:'Great Vibes',cursive;font-size:clamp(46px,9vw,80px);line-height:1.25;color:var(--accInk);display:flex;align-items:baseline">
+        <sc-for list="{{ preLetras }}" as="l" hint-placeholder-count="0">
+          <span style="display:inline-block;white-space:pre;opacity:{{ l.op }};filter:{{ l.fil }};transform:{{ l.tf }};transition:opacity .7s ease,filter .7s ease,transform .7s cubic-bezier(.2,.75,.2,1)">{{ l.ch }}</span>
+        </sc-for>
+      </p>
+      <span aria-hidden="true" style="width:min(280px,56vw);height:2px;border-radius:2px;background:linear-gradient(90deg,transparent,var(--acc),transparent);transform-origin:left;opacity:{{ preTrazoOp }};transform:{{ preTrazoTf }};transition:opacity .9s ease,transform .9s cubic-bezier(.2,.75,.2,1)"></span>
+      <p style="margin:0;font-size:11px;font-weight:800;letter-spacing:.34em;text-transform:uppercase;color:var(--text2);opacity:{{ preSubOp }};transform:{{ preSubTf }};transition:opacity .8s ease,transform .8s ease">Diseño de interiores</p>
+    </div>
 
   <!-- ============ HERO ============ -->
-  <header id="inicio" data-sec="inicio" data-screen-label="Hero" style="position:relative;width:100%;height:clamp(380px,50vh,580px)">
+  <header id="inicio" data-sec="inicio" data-screen-label="Hero" style="position:relative;width:100%;height:clamp(380px,50vh,580px);animation:pageIn 1.15s cubic-bezier(.2,.75,.2,1) 4.15s">
     <img src="assets/images/hero.png" alt="Interior residencial cálido con iluminación de diseño" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
     <div data-video-holder style="position:absolute;inset:0"></div>
     <div style="position:absolute;inset:0;background:linear-gradient(92deg, rgba(12,9,20,.62) 0%, rgba(12,9,20,.28) 45%, rgba(12,9,20,0) 72%)"></div>
     <div style="position:absolute;left:0;right:0;top:0;height:24%;background:linear-gradient(to bottom, var(--bg), transparent);transition:background .6s ease"></div>
     <div style="position:absolute;left:0;right:0;bottom:0;height:36%;background:linear-gradient(to top, var(--bg), transparent);transition:background .6s ease"></div>
     <div style="position:relative;z-index:4;max-width:1180px;margin:0 auto;padding:0 clamp(18px,4vw,32px);height:100%;display:flex;flex-direction:column;justify-content:center;gap:18px">
-      <h1 style="margin:0;font-size:clamp(34px,5.2vw,58px);line-height:1.07;font-weight:800;letter-spacing:-0.02em;color:#ffffff;text-wrap:balance">
+      <h1 style="margin:0;font-size:clamp(34px,5.2vw,58px);line-height:1.07;font-weight:800;letter-spacing:-0.02em;color:#ffffff;text-wrap:balance;animation:fadeUp .9s cubic-bezier(.2,.75,.2,1) 4.45s both">
         Diseño espacios.<br>
-        <em style="font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:#cdb6ff">Creo experiencias.</em>
+        <em style="font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:#cdb6ff;position:relative;display:inline-block">
+          <span style="visibility:hidden">Creo experiencias.</span>
+          <sc-for list="{{ heroWords }}" as="w" hint-placeholder-count="0">
+            <span style="position:absolute;left:0;top:0;white-space:nowrap;opacity:{{ w.op }};filter:{{ w.fil }};transform:translateY({{ w.ty }});transition:opacity .9s ease,filter .9s ease,transform .9s ease">{{ w.t }}</span>
+          </sc-for>
+        </em>
       </h1>
-      <p style="margin:0;max-width:420px;font-size:clamp(14px,1.4vw,16.5px);line-height:1.65;color:rgba(255,255,255,.82)">Transformo ideas en espacios funcionales, estéticos y llenos de vida.</p>
-      <div style="display:flex;gap:12px;margin-top:6px">
-        <a href="#proyectos" data-ripple data-magnetic style="display:inline-flex;align-items:center;gap:10px;padding:12px 22px;border-radius:999px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:#fff;font-size:14px;font-weight:700;text-decoration:none;transition:background .35s,transform .35s" style-hover="background:rgba(255,255,255,.24)">
+      <p style="margin:0;max-width:420px;font-size:clamp(14px,1.4vw,16.5px);line-height:1.65;color:rgba(255,255,255,.82);animation:fadeUp .9s cubic-bezier(.2,.75,.2,1) 4.6s both">Transformo ideas en espacios funcionales, estéticos y llenos de vida.</p>
+      <div style="display:flex;gap:12px;margin-top:6px;animation:fadeUp .9s cubic-bezier(.2,.75,.2,1) 4.75s both">
+        <a href="#proyectos" data-glow data-ripple data-magnetic style="position:relative;display:inline-flex;align-items:center;gap:10px;padding:12px 22px;border-radius:999px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:#fff;font-size:14px;font-weight:700;text-decoration:none;transition:background .35s,transform .35s" style-hover="background:rgba(255,255,255,.24)">
           <span style="display:flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:999px;background:#ffffff;color:#191722;flex:none">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"></path></svg>
           </span>
@@ -79,7 +106,7 @@
       <a href="#experiencia" data-nav="experiencia" data-ripple style="flex:none;position:relative;padding:9px 15px;border-radius:999px;font-size:13.5px;font-weight:600;color:var(--text2);text-decoration:none;white-space:nowrap;transition:color .3s,background .3s" style-hover="color:var(--text)">Experiencia<span data-underline style="position:absolute;left:15px;right:15px;bottom:4px;height:2px;border-radius:2px;background:var(--acc);transform:scaleX(0);transform-origin:left;transition:transform .35s cubic-bezier(.2,.75,.2,1)"></span></a>
       <a href="#contacto" data-nav="contacto" data-ripple style="flex:none;position:relative;padding:9px 15px;border-radius:999px;font-size:13.5px;font-weight:600;color:var(--text2);text-decoration:none;white-space:nowrap;transition:color .3s,background .3s" style-hover="color:var(--text)">Contacto<span data-underline style="position:absolute;left:15px;right:15px;bottom:4px;height:2px;border-radius:2px;background:var(--acc);transform:scaleX(0);transform-origin:left;transition:transform .35s cubic-bezier(.2,.75,.2,1)"></span></a>
       </div>
-      <button type="button" onClick="{{ toggleTheme }}" data-ripple aria-label="Cambiar tema" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;margin-left:4px;border-radius:999px;border:1px solid var(--line);background:var(--accSoft);color:var(--accInk);cursor:pointer;flex:none;transition:transform .4s,background .3s,color .6s" style-hover="transform:rotate(18deg)">
+      <button type="button" onClick="{{ toggleTheme }}" data-theme-btn data-ripple aria-label="Cambiar tema" title="Mantén presionado 2 s: modo linterna" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;margin-left:4px;border-radius:999px;border:1px solid var(--line);background:var(--accSoft);color:var(--accInk);cursor:pointer;flex:none;-webkit-user-select:none;user-select:none;touch-action:manipulation;transition:transform .4s,background .3s,color .6s" style-hover="transform:rotate(18deg)">
         <sc-if value="{{ isDark }}" hint-placeholder-val="{{ false }}">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"></path></svg>
         </sc-if>
@@ -112,14 +139,14 @@
         <h2 style="margin:0;font-size:clamp(22px,2.4vw,27px);font-weight:800;letter-spacing:-0.01em">¿Quién soy?</h2>
         <p style="margin:0;font-size:14.5px;line-height:1.75;color:var(--text2)">Soy decoradora de espacios interiores, egresada del SENA. Me caracterizo por ser creativa, empática, innovadora, responsable y observadora.</p>
         <p style="margin:0;font-size:14.5px;line-height:1.75;color:var(--text2)">Me apasiona crear espacios funcionales y estéticos que generen experiencias únicas, aportando confort, armonía y bienestar.</p>
-        <a href="#contacto" data-ripple style="margin-top:auto;align-self:flex-start;display:inline-flex;align-items:center;gap:9px;padding:11px 18px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--text);font-size:13.5px;font-weight:700;text-decoration:none;transition:background .3s,border-color .3s,gap .3s" style-hover="background:var(--accSoft);border-color:var(--acc);gap:13px">Conocer más sobre mí
+        <a href="#contacto" data-glow data-ripple style="position:relative;margin-top:auto;align-self:flex-start;display:inline-flex;align-items:center;gap:9px;padding:11px 18px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--text);font-size:13.5px;font-weight:700;text-decoration:none;transition:background .3s,border-color .3s,gap .3s" style-hover="background:var(--accSoft);border-color:var(--acc);gap:13px">Conocer más sobre mí
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
         </a>
       </div>
 
       <div data-reveal style="display:flex;align-items:center;justify-content:center">
         <div style="width:100%;max-width:380px;animation:floaty 7s ease-in-out infinite">
-          <div style="position:relative;width:100%;aspect-ratio:3/4.2;border-radius:26px;overflow:hidden;box-shadow:var(--shadow);transition:transform .6s cubic-bezier(.2,.75,.2,1)" style-hover="transform:scale(1.02) rotate(.4deg)">
+          <div onClick="{{ nextBio }}" role="button" tabindex="0" aria-label="Siguiente foto" style="position:relative;width:100%;aspect-ratio:3/4.2;border-radius:26px;overflow:hidden;box-shadow:var(--shadow);cursor:pointer;transition:transform .6s cubic-bezier(.2,.75,.2,1)" style-hover="transform:scale(1.02) rotate(.4deg)">
             <img src="assets/images/bio/bio-1.jpg" alt="Retrato de Geraldine Olivar, diseñadora de interiores" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:{{ b1.op }};filter:{{ b1.fil }};transform:scale({{ b1.esc }});transition:opacity 1.1s ease,filter 1.1s ease,transform 5.5s ease">
             <img src="assets/images/bio/bio-2.jpg" alt="" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:{{ b2.op }};filter:{{ b2.fil }};transform:scale({{ b2.esc }});transition:opacity 1.1s ease,filter 1.1s ease,transform 5.5s ease">
             <img src="assets/images/bio/bio-3.jpg" alt="" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:{{ b3.op }};filter:{{ b3.fil }};transform:scale({{ b3.esc }});transition:opacity 1.1s ease,filter 1.1s ease,transform 5.5s ease">
@@ -156,30 +183,13 @@
   <section id="proyectos" data-sec="proyectos" data-screen-label="Proyectos" style="scroll-margin-top:96px;max-width:1180px;margin:0 auto;padding:clamp(40px,6vw,70px) clamp(18px,4vw,32px)">
     <div data-reveal style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:30px">
       <div>
-        <p style="margin:0 0 10px;font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--accInk)">Mi trabajo</p>
-        <h2 style="margin:0;font-size:clamp(28px,3.6vw,40px);font-weight:800;letter-spacing:-0.02em">Proyectos <em style="font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--accInk)">destacados</em></h2>
+        <p style="margin:0 0 10px;font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;background:linear-gradient(90deg,var(--accInk) 30%,color-mix(in srgb,var(--accInk) 45%,#ffffff) 50%,var(--accInk) 70%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shimmer 8s linear infinite">Mi trabajo</p>
+        <h2 style="margin:0;font-size:clamp(28px,3.6vw,40px);font-weight:800;letter-spacing:-0.02em">Proyectos <em style="font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;padding:0 .16em .12em .06em;margin:0 -.16em -.12em -.06em;background:linear-gradient(90deg,var(--accInk) 30%,color-mix(in srgb,var(--accInk) 40%,#ffffff) 50%,var(--accInk) 70%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shimmer 7s linear infinite">destacados</em></h2>
         <p style="margin:12px 0 0;max-width:520px;font-size:14.5px;line-height:1.65;color:var(--text2)">Cada proyecto cuenta una historia; descubre cómo diseño espacios que inspiran.</p>
       </div>
     </div>
 
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:clamp(16px,2vw,22px)">
-
-      <article data-glow data-ripple data-idx="0" onClick="{{ openProj }}" onKeyDown="{{ keyOpenProj }}" role="button" tabindex="0" aria-label="Ver proyecto R.E.M. Beauty" style="position:relative;overflow:hidden;background:var(--card);border:1px solid var(--line);border-radius:22px;cursor:pointer;transition:transform .5s cubic-bezier(.2,.75,.2,1),box-shadow .5s,border-color .4s,background .6s ease" style-hover="transform:translateY(-7px);box-shadow:var(--shadow);border-color:var(--acc)" style-focus="outline:2px solid var(--acc);outline-offset:3px">
-        <div style="position:relative;overflow:hidden">
-          <img src="assets/images/galeria/rem-1.jpg" alt="Tienda R.E.M. Beauty, diseño de local comercial" loading="lazy" style="display:block;width:100%;aspect-ratio:4/3.3;object-fit:cover">
-          <span style="position:absolute;left:12px;bottom:12px;padding:5px 11px;border-radius:999px;background:rgba(14,11,22,.5);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:#fff;font-size:11px;font-weight:700;letter-spacing:.04em">Comercial</span>
-        </div>
-        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:15px 17px">
-          <div>
-            <h3 style="margin:0;font-size:15.5px;font-weight:800;letter-spacing:-0.01em">R.E.M. Beauty</h3>
-            <p style="margin:4px 0 0;font-size:12.5px;color:var(--text2)">Diseño de local comercial</p>
-          </div>
-          <span style="flex:none;display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:999px;border:1px solid var(--line);color:var(--accInk);background:var(--accSoft);transition:transform .4s">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
-          </span>
-        </div>
-        <div data-glowlayer style="position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .45s ease"></div>
-      </article>
 
       <article data-glow data-ripple data-idx="1" onClick="{{ openProj }}" onKeyDown="{{ keyOpenProj }}" role="button" tabindex="0" aria-label="Ver proyecto Cocina Residencial" style="position:relative;overflow:hidden;background:var(--card);border:1px solid var(--line);border-radius:22px;cursor:pointer;transition:transform .5s cubic-bezier(.2,.75,.2,1),box-shadow .5s,border-color .4s,background .6s ease" style-hover="transform:translateY(-7px);box-shadow:var(--shadow);border-color:var(--acc)" style-focus="outline:2px solid var(--acc);outline-offset:3px">
         <div style="position:relative;overflow:hidden">
@@ -191,7 +201,24 @@
             <h3 style="margin:0;font-size:15.5px;font-weight:800;letter-spacing:-0.01em">Cocina Residencial</h3>
             <p style="margin:4px 0 0;font-size:12.5px;color:var(--text2)">Diseño integral de cocina</p>
           </div>
-          <span style="flex:none;display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:999px;border:1px solid var(--line);color:var(--accInk);background:var(--accSoft);transition:transform .4s">
+          <span data-glow style="position:relative;flex:none;display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:999px;border:1px solid var(--line);color:var(--accInk);background:var(--accSoft);transition:transform .4s">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+          </span>
+        </div>
+        <div data-glowlayer style="position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .45s ease"></div>
+      </article>
+
+      <article data-glow data-ripple data-idx="0" onClick="{{ openProj }}" onKeyDown="{{ keyOpenProj }}" role="button" tabindex="0" aria-label="Ver proyecto R.E.M. Beauty" style="position:relative;overflow:hidden;background:var(--card);border:1px solid var(--line);border-radius:22px;cursor:pointer;transition:transform .5s cubic-bezier(.2,.75,.2,1),box-shadow .5s,border-color .4s,background .6s ease" style-hover="transform:translateY(-7px);box-shadow:var(--shadow);border-color:var(--acc)" style-focus="outline:2px solid var(--acc);outline-offset:3px">
+        <div style="position:relative;overflow:hidden">
+          <img src="assets/images/galeria/rem-1.jpg" alt="Tienda R.E.M. Beauty, diseño de local comercial" loading="lazy" style="display:block;width:100%;aspect-ratio:4/3.3;object-fit:cover">
+          <span style="position:absolute;left:12px;bottom:12px;padding:5px 11px;border-radius:999px;background:rgba(14,11,22,.5);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:#fff;font-size:11px;font-weight:700;letter-spacing:.04em">Comercial</span>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:15px 17px">
+          <div>
+            <h3 style="margin:0;font-size:15.5px;font-weight:800;letter-spacing:-0.01em">R.E.M. Beauty</h3>
+            <p style="margin:4px 0 0;font-size:12.5px;color:var(--text2)">Diseño de local comercial</p>
+          </div>
+          <span data-glow style="position:relative;flex:none;display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:999px;border:1px solid var(--line);color:var(--accInk);background:var(--accSoft);transition:transform .4s">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
           </span>
         </div>
@@ -208,7 +235,7 @@
             <h3 style="margin:0;font-size:15.5px;font-weight:800;letter-spacing:-0.01em">Ambientación Comercial</h3>
             <p style="margin:4px 0 0;font-size:12.5px;color:var(--text2)">Tugó</p>
           </div>
-          <span style="flex:none;display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:999px;border:1px solid var(--line);color:var(--accInk);background:var(--accSoft);transition:transform .4s">
+          <span data-glow style="position:relative;flex:none;display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:999px;border:1px solid var(--line);color:var(--accInk);background:var(--accSoft);transition:transform .4s">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
           </span>
         </div>
@@ -225,7 +252,7 @@
             <h3 style="margin:0;font-size:15.5px;font-weight:800;letter-spacing:-0.01em">Proyectos Independientes</h3>
             <p style="margin:4px 0 0;font-size:12.5px;color:var(--text2)">Diseño interior</p>
           </div>
-          <span style="flex:none;display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:999px;border:1px solid var(--line);color:var(--accInk);background:var(--accSoft);transition:transform .4s">
+          <span data-glow style="position:relative;flex:none;display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:999px;border:1px solid var(--line);color:var(--accInk);background:var(--accSoft);transition:transform .4s">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
           </span>
         </div>
@@ -237,8 +264,8 @@
   <!-- ============ HABILIDADES ============ -->
   <section id="habilidades" data-sec="habilidades" data-screen-label="Habilidades" style="scroll-margin-top:96px;max-width:1180px;margin:0 auto;padding:clamp(40px,6vw,70px) clamp(18px,4vw,32px)">
     <div data-reveal>
-      <p style="margin:0 0 10px;font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--accInk)">Herramientas que utilizo</p>
-      <h2 style="margin:0 0 28px;font-size:clamp(28px,3.6vw,40px);font-weight:800;letter-spacing:-0.02em">Habilidades y <em style="font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--accInk)">software</em></h2>
+      <p style="margin:0 0 10px;font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;background:linear-gradient(90deg,var(--accInk) 30%,color-mix(in srgb,var(--accInk) 45%,#ffffff) 50%,var(--accInk) 70%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shimmer 8s linear infinite">Herramientas que utilizo</p>
+      <h2 style="margin:0 0 28px;font-size:clamp(28px,3.6vw,40px);font-weight:800;letter-spacing:-0.02em">Habilidades y <em style="font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;padding:0 .16em .12em .06em;margin:0 -.16em -.12em -.06em;background:linear-gradient(90deg,var(--accInk) 30%,color-mix(in srgb,var(--accInk) 40%,#ffffff) 50%,var(--accInk) 70%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shimmer 7s linear infinite">software</em></h2>
     </div>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(118px,1fr));gap:clamp(12px,1.6vw,18px)">
       <div data-glow role="button" tabindex="0" onClick="{{ openSkill }}" onKeyDown="{{ keyOpenSkill }}" style="cursor:pointer;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;gap:12px;padding:22px 12px;background:var(--card);border:1px solid var(--line);border-radius:20px;transition:transform .45s cubic-bezier(.2,.75,.2,1),box-shadow .45s,background .6s ease" style-hover="transform:translateY(-6px);box-shadow:var(--shadow)" style-focus="outline:2px solid var(--acc);outline-offset:3px"><div data-glowlayer style="position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .45s ease"></div><img src="assets/images/icons/sketchup.png" alt="" loading="lazy" style="width:50px;height:50px;object-fit:contain;border-radius:12px"><span style="font-size:13px;font-weight:700">SketchUp</span></div>
@@ -255,8 +282,8 @@
   <!-- ============ EXPERIENCIA ============ -->
   <section id="experiencia" data-sec="experiencia" data-screen-label="Experiencia" style="scroll-margin-top:96px;max-width:1180px;margin:0 auto;padding:clamp(40px,6vw,70px) clamp(18px,4vw,32px)">
     <div data-reveal>
-      <p style="margin:0 0 10px;font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--accInk)">Experiencia que respalda</p>
-      <h2 style="margin:0 0 28px;font-size:clamp(28px,3.6vw,40px);font-weight:800;letter-spacing:-0.02em">Mi <em style="font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--accInk)">experiencia</em></h2>
+      <p style="margin:0 0 10px;font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;background:linear-gradient(90deg,var(--accInk) 30%,color-mix(in srgb,var(--accInk) 45%,#ffffff) 50%,var(--accInk) 70%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shimmer 8s linear infinite">Trayectoria profesional</p>
+      <h2 style="margin:0 0 28px;font-size:clamp(28px,3.6vw,40px);font-weight:800;letter-spacing:-0.02em">Mi <em style="font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;padding:0 .16em .12em .06em;margin:0 -.16em -.12em -.06em;background:linear-gradient(90deg,var(--accInk) 30%,color-mix(in srgb,var(--accInk) 40%,#ffffff) 50%,var(--accInk) 70%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shimmer 7s linear infinite">experiencia</em></h2>
     </div>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:clamp(14px,1.8vw,20px)">
       <div data-glow style="position:relative;overflow:hidden;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:26px 26px 24px;transition:transform .45s cubic-bezier(.2,.75,.2,1),box-shadow .45s,background .6s ease" style-hover="transform:translateY(-5px);box-shadow:var(--shadow)"><div data-glowlayer style="position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .45s ease"></div><p style="margin:0;font-size:34px;font-weight:800;letter-spacing:-0.03em;color:var(--accInk)">1+</p><p style="margin:8px 0 0;font-size:14.5px;font-weight:700">Año de experiencia</p><p style="margin:3px 0 0;font-size:13px;color:var(--text2)">en diseño de interiores</p></div>
@@ -270,10 +297,65 @@
   <section id="contacto" data-sec="contacto" data-screen-label="Contacto" style="scroll-margin-top:96px;margin-top:clamp(30px,4vw,50px);background:linear-gradient(180deg, transparent, var(--accSoft) 22%, var(--accSoft) 82%, transparent);padding:clamp(56px,8vw,96px) 0">
     <div style="max-width:1180px;margin:0 auto;padding:0 clamp(18px,4vw,32px)">
       <div data-reveal style="text-align:center;max-width:560px;margin:0 auto 36px">
-        <p style="margin:0 0 10px;font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--accInk)">Trabajemos juntos</p>
-        <h2 style="margin:0;font-size:clamp(28px,3.8vw,42px);font-weight:800;letter-spacing:-0.02em;text-wrap:balance">¿Tienes un proyecto <em style="font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--accInk)">en mente?</em></h2>
-        <p style="margin:14px 0 0;font-size:14.5px;line-height:1.7;color:var(--text2)">Estoy lista para ayudarte a transformar tus ideas en espacios únicos. Hablemos y diseñemos juntos algo increíble.</p>
+        <p style="margin:0 0 10px;font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;background:linear-gradient(90deg,var(--accInk) 30%,color-mix(in srgb,var(--accInk) 45%,#ffffff) 50%,var(--accInk) 70%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shimmer 8s linear infinite">Trabajemos juntos</p>
+        <h2 style="margin:0;font-size:clamp(28px,3.8vw,42px);font-weight:800;letter-spacing:-0.02em;text-wrap:balance">¿Tienes un proyecto <em style="font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;padding:0 .16em .12em .06em;margin:0 -.16em -.12em -.06em;background:linear-gradient(90deg,var(--accInk) 30%,color-mix(in srgb,var(--accInk) 40%,#ffffff) 50%,var(--accInk) 70%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shimmer 7s linear infinite">en mente?</em></h2>
+        <p style="margin:14px 0 0;font-size:14.5px;line-height:1.7;color:var(--text2)">Estoy lista para ayudarte a transformar tus ideas en espacios únicos. Hablemos y diseñemos juntos algo <span style="position:relative;display:inline-block;font-weight:700;color:var(--accInk)"><span style="visibility:hidden">inolvidable.</span><sc-for list="{{ ctWords }}" as="w" hint-placeholder-count="0"><span style="position:absolute;left:0;top:0;white-space:nowrap;opacity:{{ w.op }};filter:{{ w.fil }};transform:translateY({{ w.ty }});transition:opacity .9s ease,filter .9s ease,transform .9s ease">{{ w.t }}</span></sc-for></span></p>
       </div>
+
+      <!-- Brief interactivo -->
+      <div data-reveal data-glow style="position:relative;overflow:hidden;max-width:660px;margin:0 auto 42px;background:var(--card);border:1px solid var(--line);border-radius:24px;padding:clamp(22px,3.4vw,34px);box-shadow:var(--shadow);transition:background .6s ease,border-color .6s ease">
+        <div data-glowlayer style="position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .45s ease"></div>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+          <p style="margin:0;font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--accInk)">Diseñemos tu brief</p>
+          <sc-if value="{{ briefEnCurso }}" hint-placeholder-val="{{ true }}">
+            <span style="font-size:11.5px;font-weight:800;color:var(--text2)">Paso {{ briefPaso }} de 3</span>
+          </sc-if>
+        </div>
+        <sc-if value="{{ briefP1 }}" hint-placeholder-val="{{ true }}">
+          <div style="animation:briefIn .5s ease both">
+            <h3 style="margin:12px 0 16px;font-size:clamp(18px,2vw,21px);font-weight:800;letter-spacing:-0.01em">¿Qué espacio quieres transformar?</h3>
+            <div style="display:flex;flex-wrap:wrap;gap:10px">
+              <sc-for list="{{ briefEspacios }}" as="op" hint-placeholder-count="0">
+                <button type="button" data-val="{{ op }}" onClick="{{ briefPickEspacio }}" data-glow data-ripple style="position:relative;padding:11px 18px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--text);font-size:13.5px;font-weight:700;cursor:pointer;transition:background .3s,border-color .3s,transform .3s" style-hover="background:var(--accSoft);border-color:var(--acc);transform:translateY(-2px)">{{ op }}</button>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+        <sc-if value="{{ briefP2 }}" hint-placeholder-val="{{ false }}">
+          <div style="animation:briefIn .5s ease both">
+            <h3 style="margin:12px 0 16px;font-size:clamp(18px,2vw,21px);font-weight:800;letter-spacing:-0.01em">¿Con qué estilo sueñas?</h3>
+            <div style="display:flex;flex-wrap:wrap;gap:10px">
+              <sc-for list="{{ briefEstilos }}" as="op" hint-placeholder-count="0">
+                <button type="button" data-val="{{ op }}" onClick="{{ briefPickEstilo }}" data-glow data-ripple style="position:relative;padding:11px 18px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--text);font-size:13.5px;font-weight:700;cursor:pointer;transition:background .3s,border-color .3s,transform .3s" style-hover="background:var(--accSoft);border-color:var(--acc);transform:translateY(-2px)">{{ op }}</button>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+        <sc-if value="{{ briefP3 }}" hint-placeholder-val="{{ false }}">
+          <div style="animation:briefIn .5s ease both">
+            <h3 style="margin:12px 0 16px;font-size:clamp(18px,2vw,21px);font-weight:800;letter-spacing:-0.01em">¿Cuándo te gustaría empezar?</h3>
+            <div style="display:flex;flex-wrap:wrap;gap:10px">
+              <sc-for list="{{ briefTiempos }}" as="op" hint-placeholder-count="0">
+                <button type="button" data-val="{{ op }}" onClick="{{ briefPickTiempo }}" data-glow data-ripple style="position:relative;padding:11px 18px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--text);font-size:13.5px;font-weight:700;cursor:pointer;transition:background .3s,border-color .3s,transform .3s" style-hover="background:var(--accSoft);border-color:var(--acc);transform:translateY(-2px)">{{ op }}</button>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+        <sc-if value="{{ briefP4 }}" hint-placeholder-val="{{ false }}">
+          <div style="animation:briefIn .5s ease both">
+            <h3 style="margin:12px 0 8px;font-size:clamp(18px,2vw,21px);font-weight:800;letter-spacing:-0.01em">¡Listo! Me encanta tu proyecto.</h3>
+            <p style="margin:0 0 18px;font-size:14px;line-height:1.6;color:var(--text2)">{{ briefResumen }}</p>
+            <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center">
+              <a href="{{ briefWa }}" target="_blank" rel="noopener" data-glow data-ripple style="position:relative;display:inline-flex;align-items:center;gap:10px;padding:13px 24px;border-radius:999px;background:var(--acc);color:#ffffff;font-size:14px;font-weight:800;text-decoration:none;transition:transform .3s,box-shadow .3s" style-hover="transform:translateY(-3px);box-shadow:var(--shadow)">
+                <img src="assets/images/icons/whatsapp.png" alt="" style="width:20px;height:20px;border-radius:5px">
+                Enviar por WhatsApp
+              </a>
+              <button type="button" onClick="{{ briefReset }}" data-glow data-ripple style="position:relative;padding:12px 20px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--text2);font-size:13px;font-weight:700;cursor:pointer;transition:background .3s,color .3s" style-hover="background:var(--accSoft);color:var(--text)">Empezar de nuevo</button>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(225px,1fr));gap:clamp(12px,1.6vw,18px)">
         <a href="https://wa.me/573017777049?text=Hola%20Geraldine%2C%20vi%20tu%20portafolio%20y%20me%20gustar%C3%ADa%20hablar%20sobre%20un%20proyecto." target="_blank" rel="noopener" data-glow data-ripple style="position:relative;overflow:hidden;display:flex;align-items:center;gap:14px;padding:18px 20px;background:var(--card);border:1px solid var(--line);border-radius:20px;text-decoration:none;color:var(--text);transition:transform .45s cubic-bezier(.2,.75,.2,1),box-shadow .45s,border-color .4s,background .6s ease" style-hover="transform:translateY(-5px);box-shadow:var(--shadow);border-color:#25d366"><div data-glowlayer style="position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .45s ease"></div><img src="assets/images/icons/whatsapp.png" alt="" loading="lazy" style="flex:none;width:44px;height:44px;border-radius:13px;object-fit:cover;transition:transform .4s"><span><span style="display:block;font-size:14.5px;font-weight:800">WhatsApp</span><span style="display:block;margin-top:2px;font-size:12.5px;color:var(--text2)">301-777-7049</span><span style="display:block;margin-top:5px;font-size:12px;font-weight:700;color:var(--accInk)">Escríbeme ahora</span></span></a>
         <a href="tel:+573237981043" data-glow data-ripple style="position:relative;overflow:hidden;display:flex;align-items:center;gap:14px;padding:18px 20px;background:var(--card);border:1px solid var(--line);border-radius:20px;text-decoration:none;color:var(--text);transition:transform .45s cubic-bezier(.2,.75,.2,1),box-shadow .45s,border-color .4s,background .6s ease" style-hover="transform:translateY(-5px);box-shadow:var(--shadow);border-color:var(--acc)"><div data-glowlayer style="position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .45s ease"></div><span style="flex:none;display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:13px;background:var(--accSoft);color:var(--accInk);transition:transform .4s"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.4 2.1L8 10a16 16 0 0 0 6 6l1.3-1.4a2 2 0 0 1 2.1-.4c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.7 2z"></path></svg></span><span><span style="display:block;font-size:14.5px;font-weight:800">Llamada</span><span style="display:block;margin-top:2px;font-size:12.5px;color:var(--text2)">323-798-1043</span><span style="display:block;margin-top:5px;font-size:12px;font-weight:700;color:var(--accInk)">Llámame directo</span></span></a>
@@ -290,7 +372,7 @@
     <div style="max-width:1180px;margin:0 auto;padding:clamp(40px,5vw,60px) clamp(18px,4vw,32px) 28px">
       <div style="display:flex;flex-wrap:wrap;gap:clamp(28px,5vw,70px);justify-content:space-between">
         <div style="min-width:200px">
-          <p style="margin:0;font-family:'Great Vibes',cursive;font-size:36px;line-height:1.1;color:var(--accInk)">Geraldine Olivar</p>
+          <p style="margin:0;font-family:'Great Vibes',cursive;font-size:36px;line-height:1.1;padding:.08em .3em .28em .1em;margin:-.08em -.3em -.28em -.1em;background:linear-gradient(90deg,var(--accInk) 30%,color-mix(in srgb,var(--accInk) 40%,#ffffff) 50%,var(--accInk) 70%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shimmer 9s linear infinite">Geraldine Olivar</p>
           <p style="margin:8px 0 0;font-size:10.5px;font-weight:800;letter-spacing:.28em;text-transform:uppercase;color:var(--text2)">Diseño de interiores</p>
         </div>
         <div style="display:flex;gap:clamp(28px,4vw,60px);flex-wrap:wrap">
@@ -316,7 +398,15 @@
         </div>
       </div>
       <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px;margin-top:36px;padding-top:22px;border-top:1px solid var(--line)">
-        <p style="margin:0;font-size:12.5px;color:var(--text2)">© 2026 Geraldine Olivar · Todos los derechos reservados.</p>
+        <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+          <p style="margin:0;font-size:12.5px;color:var(--text2)">© 2026 Geraldine Olivar · Todos los derechos reservados.</p>
+          <sc-if value="{{ visitasVisible }}" hint-placeholder-val="{{ false }}">
+            <span title="Visitas a la página" style="display:inline-flex;align-items:center;gap:7px;padding:5px 13px;border-radius:999px;border:1px solid var(--line);background:var(--accSoft);font-size:12px;font-weight:700;color:var(--accInk)">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-6.5 10-6.5S22 12 22 12s-3.5 6.5-10 6.5S2 12 2 12z"></path><circle cx="12" cy="12" r="2.6"></circle></svg>
+              {{ visitasTxt }} visitas
+            </span>
+          </sc-if>
+        </div>
         <button type="button" onClick="{{ backToTop }}" data-ripple data-magnetic aria-label="Volver arriba" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:999px;border:1px solid var(--line);background:var(--accSoft);color:var(--accInk);cursor:pointer;transition:transform .35s,box-shadow .35s" style-hover="transform:translateY(-4px);box-shadow:var(--shadow)">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 15l6-6 6 6"></path></svg>
         </button>
@@ -331,21 +421,21 @@
         <div style="position:relative;background:#0e0b16">
           <div data-gal-main style="position:relative;width:100%;height:clamp(230px,40vh,390px)"></div>
           <sc-if value="{{ mGalZones }}" hint-placeholder-val="{{ false }}">
-            <button type="button" onClick="{{ galPrev }}" aria-label="Foto anterior" style="position:absolute;left:0;top:0;bottom:0;width:32%;z-index:3;display:flex;align-items:center;justify-content:flex-start;padding:0 0 0 14px;border:0;background:linear-gradient(90deg,rgba(10,8,18,.32),transparent);cursor:pointer;opacity:0;transition:opacity .35s ease" style-hover="opacity:1">
+            <button type="button" onClick="{{ galPrev }}" aria-label="Foto anterior" style="position:absolute;left:0;top:0;bottom:0;width:32%;z-index:3;display:flex;align-items:center;justify-content:flex-start;padding:0 0 0 14px;border:0;background:linear-gradient(90deg,rgba(10,8,18,.32),transparent);cursor:pointer;opacity:.45;transition:opacity .3s ease" style-hover="opacity:1" style-active="opacity:1">
               <span style="display:flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:999px;background:rgba(14,11,22,.5);border:1px solid rgba(255,255,255,.3);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:#fff">
                 <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg>
               </span>
             </button>
-            <button type="button" onClick="{{ galNext }}" aria-label="Foto siguiente" style="position:absolute;right:0;top:0;bottom:0;width:32%;z-index:3;display:flex;align-items:center;justify-content:flex-end;padding:0 14px 0 0;border:0;background:linear-gradient(270deg,rgba(10,8,18,.32),transparent);cursor:pointer;opacity:0;transition:opacity .35s ease" style-hover="opacity:1">
+            <button type="button" onClick="{{ galNext }}" aria-label="Foto siguiente" style="position:absolute;right:0;top:0;bottom:0;width:32%;z-index:3;display:flex;align-items:center;justify-content:flex-end;padding:0 14px 0 0;border:0;background:linear-gradient(270deg,rgba(10,8,18,.32),transparent);cursor:pointer;opacity:.45;transition:opacity .3s ease" style-hover="opacity:1" style-active="opacity:1">
               <span style="display:flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:999px;background:rgba(14,11,22,.5);border:1px solid rgba(255,255,255,.3);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:#fff">
                 <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg>
               </span>
             </button>
           </sc-if>
-          <button type="button" onClick="{{ openBig }}" aria-label="Ver en grande" title="Ver en grande" style="position:absolute;top:14px;right:60px;z-index:4;display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:999px;border:1px solid rgba(255,255,255,.3);background:rgba(14,11,22,.45);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:#fff;cursor:pointer;transition:transform .3s,background .3s" style-hover="transform:scale(1.12);background:rgba(14,11,22,.7)">
+          <button type="button" onClick="{{ openBig }}" aria-label="Ver en grande" title="Ver en grande" style="position:absolute;top:14px;right:60px;z-index:6;display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:999px;border:1px solid rgba(255,255,255,.3);background:rgba(14,11,22,.45);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:#fff;cursor:pointer;transition:transform .3s,background .3s" style-hover="transform:scale(1.12);background:rgba(14,11,22,.7)">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3"></path><path d="M16 3h3a2 2 0 0 1 2 2v3"></path><path d="M8 21H5a2 2 0 0 1-2-2v-3"></path><path d="M16 21h3a2 2 0 0 0 2-2v-3"></path></svg>
           </button>
-          <button type="button" data-modal-close onClick="{{ closeModal }}" aria-label="Cerrar" style="position:absolute;top:14px;right:14px;display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:999px;border:1px solid rgba(255,255,255,.3);background:rgba(14,11,22,.45);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:#fff;cursor:pointer;transition:transform .3s,background .3s" style-hover="transform:rotate(90deg);background:rgba(14,11,22,.7)">
+          <button type="button" data-modal-close onClick="{{ closeModal }}" aria-label="Cerrar" style="z-index:6;position:absolute;top:14px;right:14px;display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:999px;border:1px solid rgba(255,255,255,.3);background:rgba(14,11,22,.45);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:#fff;cursor:pointer;transition:transform .3s,background .3s" style-hover="transform:rotate(90deg);background:rgba(14,11,22,.7)">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
           </button>
         </div>
@@ -398,12 +488,12 @@
     <div style="position:fixed;inset:0;z-index:300;background:rgba(8,6,14,.9);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);animation:bIn .35s ease">
       <div data-gal-big style="position:absolute;inset:clamp(8px,3vw,44px);animation:gIn .55s cubic-bezier(.2,.75,.25,1)"></div>
       <sc-if value="{{ mGalZones }}" hint-placeholder-val="{{ false }}">
-        <button type="button" onClick="{{ galPrev }}" aria-label="Foto anterior" style="position:absolute;left:0;top:0;bottom:0;width:24%;z-index:4;display:flex;align-items:center;justify-content:flex-start;padding:0 0 0 18px;border:0;background:linear-gradient(90deg,rgba(8,6,14,.4),transparent);cursor:pointer;opacity:0;transition:opacity .35s ease" style-hover="opacity:1">
+        <button type="button" onClick="{{ galPrev }}" aria-label="Foto anterior" style="position:absolute;left:0;top:0;bottom:0;width:24%;z-index:4;display:flex;align-items:center;justify-content:flex-start;padding:0 0 0 18px;border:0;background:linear-gradient(90deg,rgba(8,6,14,.4),transparent);cursor:pointer;opacity:.45;transition:opacity .3s ease" style-hover="opacity:1" style-active="opacity:1">
           <span style="display:flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:999px;background:rgba(14,11,22,.5);border:1px solid rgba(255,255,255,.3);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:#fff">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg>
           </span>
         </button>
-        <button type="button" onClick="{{ galNext }}" aria-label="Foto siguiente" style="position:absolute;right:0;top:0;bottom:0;width:24%;z-index:4;display:flex;align-items:center;justify-content:flex-end;padding:0 18px 0 0;border:0;background:linear-gradient(270deg,rgba(8,6,14,.4),transparent);cursor:pointer;opacity:0;transition:opacity .35s ease" style-hover="opacity:1">
+        <button type="button" onClick="{{ galNext }}" aria-label="Foto siguiente" style="position:absolute;right:0;top:0;bottom:0;width:24%;z-index:4;display:flex;align-items:center;justify-content:flex-end;padding:0 18px 0 0;border:0;background:linear-gradient(270deg,rgba(8,6,14,.4),transparent);cursor:pointer;opacity:.45;transition:opacity .3s ease" style-hover="opacity:1" style-active="opacity:1">
           <span style="display:flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:999px;background:rgba(14,11,22,.5);border:1px solid rgba(255,255,255,.3);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:#fff">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg>
           </span>
@@ -413,6 +503,14 @@
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
       </button>
     </div>
+  </sc-if>
+
+  <!-- ============ MODO LINTERNA ============ -->
+  <sc-if value="{{ lanternOn }}" hint-placeholder-val="{{ false }}">
+    <div data-lantern aria-hidden="true" style="position:fixed;inset:0;z-index:95;pointer-events:none;background:radial-gradient(circle 300px at 50% 40%, transparent 0%, rgba(2,1,8,.9) 74%);animation:bIn .6s ease"></div>
+  </sc-if>
+  <sc-if value="{{ lanternToast }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;left:50%;bottom:26px;transform:translateX(-50%);z-index:96;padding:10px 18px;border-radius:999px;background:rgba(21,18,32,.85);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:#f0eef6;font-size:12.5px;font-weight:700;white-space:nowrap;animation:fadeUp .5s ease both">Modo linterna activado · mantén presionado el botón de tema para salir</div>
   </sc-if>
 
   <!-- ============ MODAL HABILIDAD ============ -->
@@ -436,7 +534,13 @@
   &quot;videoReel&quot;: {&quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;assets/videos/reel.mp4&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Contenido&quot;}
 }">
 class Component extends DCLogic {
-  state = { isDark: false, modal: null, closing: false, galIdx: 0, big: false, skill: null, musicOn: false, musicAvailable: false, bioIdx: 0 };
+  state = { isDark: false, modal: null, closing: false, galIdx: 0, big: false, skill: null, musicOn: false, musicAvailable: false, bioIdx: 0, visitas: null, pre: 'run', preN: 0, heroIdx: 0, lantern: false, lanternToast: false, brief: { paso: 1, espacio: '', estilo: '', inicio: '' } };
+
+  _heroWords = ['Creo experiencias.', 'Creo armonía.', 'Creo bienestar.', 'Creo historias.'];
+  _preLetras = 'Geraldine Olivar'.split('');
+  _briefEspacios = ['Cocina', 'Sala', 'Dormitorio', 'Baño', 'Local comercial', 'Oficina', 'Otro espacio'];
+  _briefEstilos = ['Moderno', 'Minimalista', 'Clásico', 'Industrial', 'Bohemio', 'Aún no lo sé'];
+  _briefTiempos = ['Lo antes posible', 'En 1 a 3 meses', 'En 3 a 6 meses', 'Solo estoy explorando'];
 
   skills = [
     { icon: 'assets/images/icons/sketchup.png', nombre: 'SketchUp', desc: 'Modelado 3D de espacios residenciales y comerciales, desarrollando propuestas de distribución, mobiliario y diseño interior.' },
@@ -515,7 +619,11 @@ class Component extends DCLogic {
     return {
       isDark: this.state.isDark,
       isLight: !this.state.isDark,
-      toggleTheme: () => this.setTheme(!this.state.isDark),
+      toggleTheme: () => {
+        // A completed 2s hold (lantern) must not also flip the theme on release
+        if (this._suppressThemeClick) { this._suppressThemeClick = false; return; }
+        this.setTheme(!this.state.isDark);
+      },
       modalVisible: this.state.modal != null,
       mImg: p ? p.img : '', mCat: p ? p.cat : '', mTitle: p ? p.title : '', mSub: p ? p.sub : '',
       mDesc: p ? p.desc : '', mResultado: p ? p.resultado : [], mDesafio: p ? p.desafio : [],
@@ -569,6 +677,48 @@ class Component extends DCLogic {
       musicBg: this.state.musicOn ? 'var(--acc)' : 'var(--accSoft)',
       musicColor: this.state.musicOn ? '#ffffff' : 'var(--accInk)',
       toggleMusic: () => this.setMusic(!this.state.musicOn),
+      preLetras: this._preLetras.map((c, i) => ({
+        ch: c,
+        op: i < this.state.preN ? '1' : '0',
+        fil: i < this.state.preN ? 'blur(0px)' : 'blur(12px)',
+        tf: i < this.state.preN ? 'none' : 'translateY(12px) rotate(3deg) scale(1.15)'
+      })),
+      preTrazoOp: this.state.preN >= 17 ? '1' : '0',
+      preTrazoTf: this.state.preN >= 17 ? 'scaleX(1)' : 'scaleX(0)',
+      preSubOp: this.state.preN >= 18 ? '1' : '0',
+      preSubTf: this.state.preN >= 18 ? 'none' : 'translateY(14px)',
+      heroWords: this._heroWords.map((t, i) => ({
+        t,
+        op: i === this.state.heroIdx ? '1' : '0',
+        fil: i === this.state.heroIdx ? 'blur(0px)' : 'blur(8px)',
+        ty: i === this.state.heroIdx ? '0px' : '12px'
+      })),
+      nextBio: () => this.setState((s) => ({ bioIdx: (s.bioIdx + 1) % this._bioList.length })),
+      ctWords: ['increíble.', 'único.', 'memorable.', 'inolvidable.'].map((t, i) => ({
+        t,
+        op: i === this.state.heroIdx ? '1' : '0',
+        fil: i === this.state.heroIdx ? 'blur(0px)' : 'blur(7px)',
+        ty: i === this.state.heroIdx ? '0px' : '10px'
+      })),
+      briefPaso: Math.min(this.state.brief.paso, 3),
+      briefEnCurso: this.state.brief.paso <= 3,
+      briefP1: this.state.brief.paso === 1,
+      briefP2: this.state.brief.paso === 2,
+      briefP3: this.state.brief.paso === 3,
+      briefP4: this.state.brief.paso === 4,
+      briefEspacios: this._briefEspacios,
+      briefEstilos: this._briefEstilos,
+      briefTiempos: this._briefTiempos,
+      briefPickEspacio: (e) => this.setState({ brief: { ...this.state.brief, espacio: e.currentTarget.dataset.val, paso: 2 } }),
+      briefPickEstilo: (e) => this.setState({ brief: { ...this.state.brief, estilo: e.currentTarget.dataset.val, paso: 3 } }),
+      briefPickTiempo: (e) => this.setState({ brief: { ...this.state.brief, inicio: e.currentTarget.dataset.val, paso: 4 } }),
+      briefResumen: 'Espacio: ' + this.state.brief.espacio + ' · Estilo: ' + this.state.brief.estilo + ' · Inicio: ' + this.state.brief.inicio,
+      briefWa: 'https://wa.me/573017777049?text=' + encodeURIComponent('Hola Geraldine, completé el brief en tu portafolio.\n• Espacio: ' + this.state.brief.espacio + '\n• Estilo: ' + this.state.brief.estilo + '\n• Inicio: ' + this.state.brief.inicio + '\n¿Podemos hablar?'),
+      briefReset: () => this.setState({ brief: { paso: 1, espacio: '', estilo: '', inicio: '' } }),
+      lanternOn: this.state.lantern,
+      lanternToast: this.state.lanternToast,
+      visitasVisible: this.state.visitas != null,
+      visitasTxt: this.state.visitas != null ? this.state.visitas.toLocaleString('es-CO') : '',
       bioFotos: this._bioList.map((src, i) => ({
         dotOp: i === this.state.bioIdx ? '.95' : '.4'
       })),
@@ -584,7 +734,7 @@ class Component extends DCLogic {
     if (this._audio) return this._audio;
     const a = new Audio();
     a.loop = true;
-    a.volume = 0.5; // 50% of original volume
+    a.volume = 0; // starts silent; setMusic fades it up to MAX_VOL
     this._musicIdx = 0;
     a.src = this._musicSrcs[0];
     a.addEventListener('error', () => {
@@ -598,13 +748,59 @@ class Component extends DCLogic {
     return a;
   }
 
+  // Smoothly ramps the audio volume; pauses at the end when target is 0
+  _fadeTo(target, done) {
+    const a = this._audio;
+    if (!a) return;
+    if (this._fadeTimer) { clearInterval(this._fadeTimer); this._fadeTimer = null; }
+    this._fadeTimer = setInterval(() => {
+      const diff = target - a.volume;
+      if (Math.abs(diff) <= 0.028) {
+        a.volume = target;
+        clearInterval(this._fadeTimer); this._fadeTimer = null;
+        if (done) done();
+        return;
+      }
+      a.volume = Math.min(1, Math.max(0, a.volume + Math.sign(diff) * 0.028));
+    }, 45); // ~1.2 s for a full ramp
+  }
+
   setMusic(on, persist = true) {
+    const MAX_VOL = 0.75;
     this.setState({ musicOn: on });
     if (persist) { try { localStorage.setItem('go-musica', on ? 'on' : 'off'); } catch (e) {} }
     const a = this._ensureAudio();
     this._pendingPlay = false;
-    if (on) a.play().catch(() => { this._pendingPlay = true; });
-    else a.pause();
+    if (on) {
+      if (a.paused) a.volume = 0;
+      a.play().then(() => this._fadeTo(MAX_VOL)).catch(() => { this._pendingPlay = true; });
+    } else {
+      this._fadeTo(0, () => a.pause());
+    }
+  }
+
+  // Lantern mode: dark spotlight that follows the pointer (double-click the theme button)
+  _toggleLantern() {
+    const on = !this.state.lantern;
+    if (on && !this.state.isDark) this.setTheme(true);
+    this.setState({ lantern: on, lanternToast: on });
+    if (this._lanternT) clearTimeout(this._lanternT);
+    if (!on) return;
+    this._lanternT = setTimeout(() => this.setState({ lanternToast: false }), 4200);
+    // Iris-in: the darkness closes around the light for a clear "activated" cue
+    const x = this._px != null ? this._px : window.innerWidth / 2;
+    const y = this._py != null ? this._py : 90;
+    const start = performance.now();
+    const grow = (now) => {
+      if (!this.state.lantern) return;
+      const el = document.querySelector('[data-lantern]');
+      const t = Math.min(1, (now - start) / 900);
+      const ease = 1 - Math.pow(1 - t, 3);
+      const rad = Math.round(1400 - (1400 - 300) * ease);
+      if (el) el.style.background = 'radial-gradient(circle ' + rad + 'px at ' + x + 'px ' + y + 'px, transparent 0%, rgba(2,1,8,.9) 74%)';
+      if (t < 1) requestAnimationFrame(grow);
+    };
+    requestAnimationFrame(grow);
   }
 
   setTheme(dark, persist = true) {
@@ -766,16 +962,56 @@ class Component extends DCLogic {
     const gesture = () => {
       if (this._pendingPlay && this.state.musicOn && this._audio) {
         this._pendingPlay = false;
-        this._audio.play().catch(() => {});
+        this._audio.volume = 0;
+        this._audio.play().then(() => this._fadeTo(0.75)).catch(() => {});
       }
     };
     document.addEventListener('pointerdown', gesture);
     document.addEventListener('keydown', gesture);
     this._cleanup.push(() => { document.removeEventListener('pointerdown', gesture); document.removeEventListener('keydown', gesture); });
 
+    // ---- Visit counter (free counter API; hidden if unreachable) ----
+    (async () => {
+      let counted = false;
+      try { counted = sessionStorage.getItem('go-visita') === '1'; } catch (e) {}
+      const base = 'https://abacus.jasoncameron.dev/';
+      try {
+        const r = await fetch(base + (counted ? 'get' : 'hit') + '/portafolio-geraldine-olivar/visitas');
+        const d = await r.json();
+        if (d && typeof d.value === 'number') {
+          this.setState({ visitas: d.value });
+          try { sessionStorage.setItem('go-visita', '1'); } catch (e) {}
+        }
+      } catch (e) {}
+    })();
+
     // ---- Bio photo carousel ----
     if (!this.reducedMotion) {
       const t = setInterval(() => this.setState((s) => ({ bioIdx: (s.bioIdx + 1) % this._bioList.length })), 4800);
+      this._cleanup.push(() => clearInterval(t));
+    }
+
+    // ---- Preloader: state-driven letter reveal (immune to re-renders), timed exit ----
+    {
+      const pre = document.querySelector('[data-preloader]');
+      if (pre) {
+        const short = this.reducedMotion;
+        const iv = setInterval(() => {
+          this.setState((s) => {
+            const n = s.preN + 1;
+            if (n >= 18) clearInterval(iv);
+            return { preN: n };
+          });
+        }, short ? 15 : 150);
+        const t1 = setTimeout(() => { pre.style.animation = 'preOut .65s cubic-bezier(.45,0,.25,1) forwards'; }, short ? 1400 : 4200);
+        const t2 = setTimeout(() => { pre.style.display = 'none'; }, short ? 1900 : 4900);
+        this._cleanup.push(() => { clearInterval(iv); clearTimeout(t1); clearTimeout(t2); pre.style.display = 'none'; });
+      }
+    }
+
+    // ---- Hero rotating word ----
+    if (!this.reducedMotion) {
+      const t = setInterval(() => this.setState((s) => ({ heroIdx: (s.heroIdx + 1) % this._heroWords.length })), 4200);
       this._cleanup.push(() => clearInterval(t));
     }
 
@@ -855,6 +1091,14 @@ class Component extends DCLogic {
     window.addEventListener('scroll', onScroll, { passive: true });
     this._cleanup.push(() => window.removeEventListener('scroll', onScroll));
     onScroll();
+    // Recompute whenever the page height changes (images/fonts settle after load)
+    if ('ResizeObserver' in window) {
+      const ro = new ResizeObserver(() => onScroll());
+      ro.observe(document.body);
+      this._cleanup.push(() => ro.disconnect());
+    }
+    const tSettles = [400, 1500, 3500, 5500].map((ms) => setTimeout(onScroll, ms));
+    this._cleanup.push(() => tSettles.forEach(clearTimeout));
 
     // ---- Reveal on scroll (replays every time a section re-enters the viewport) ----
     if (!this.reducedMotion && 'IntersectionObserver' in window) {
@@ -892,25 +1136,96 @@ class Component extends DCLogic {
 
     // ---- Mouse-follow glow on cards ----
     if (!this.reducedMotion) {
-      const move = (e) => {
-        const card = e.target.closest && e.target.closest('[data-glow]');
-        document.querySelectorAll('[data-glowlayer]').forEach((l) => {
-          if (!card || !card.contains(l)) l.style.opacity = '0';
+      const applyGlow = (cx, cy, target) => {
+        // Lantern spotlight follows the pointer
+        if (this.state.lantern && cx > -999) {
+          const lt = document.querySelector('[data-lantern]');
+          if (lt) lt.style.background = 'radial-gradient(circle 300px at ' + cx + 'px ' + cy + 'px, transparent 0%, rgba(2,1,8,.9) 74%)';
+        }
+        const card = target && target.closest ? target.closest('[data-glow]') : null;
+        document.querySelectorAll('[data-glow]').forEach((c) => {
+          if (c === card) return;
+          // Ancestor cards keep their glow/tilt while the pointer is on an inner button
+          if (card && c.contains(card)) return;
+          const l = c.querySelector('[data-glowlayer]');
+          if (l) l.style.opacity = '0';
+          const rm = c.querySelector('[data-rim]');
+          if (rm) rm.style.opacity = '0';
+          if (c.dataset.tilted) {
+            c.style.transform = '';
+            c.style.transition = c.dataset.otr || '';
+            delete c.dataset.tilted;
+          }
         });
         if (!card) return;
-        const layer = card.querySelector('[data-glowlayer]');
-        if (!layer) return;
         const r = card.getBoundingClientRect();
-        layer.style.opacity = '1';
-        layer.style.background = 'radial-gradient(320px circle at ' + (e.clientX - r.left) + 'px ' + (e.clientY - r.top) + 'px, var(--glow), transparent 65%)';
+        const layer = card.querySelector('[data-glowlayer]');
+        if (layer) {
+          layer.style.opacity = '1';
+          layer.style.background = 'radial-gradient(320px circle at ' + (cx - r.left) + 'px ' + (cy - r.top) + 'px, var(--glow), transparent 65%)';
+        }
+        // Liquid-glass rim: an illuminated border ring that follows the pointer
+        let rim = card.querySelector('[data-rim]');
+        if (!rim) {
+          rim = document.createElement('div');
+          rim.setAttribute('data-rim', '');
+          rim.style.cssText = 'position:absolute;inset:0;border-radius:inherit;padding:1.5px;pointer-events:none;opacity:0;transition:opacity .45s ease;z-index:3;-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude';
+          card.appendChild(rim);
+        }
+        rim.style.opacity = '1';
+        rim.style.background = 'radial-gradient(300px circle at ' + (cx - r.left) + 'px ' + (cy - r.top) + 'px, rgba(255,255,255,.95), color-mix(in srgb, var(--acc) 65%, transparent) 38%, transparent 72%)';
+        // Subtle 3D tilt following the pointer (skipped on magnetic buttons — they move instead)
+        if (card.hasAttribute('data-magnetic')) return;
+        const px = (cx - r.left) / r.width - 0.5;
+        const py = (cy - r.top) / r.height - 0.5;
+        if (!card.dataset.tilted) {
+          card.dataset.otr = card.style.transition || '';
+          card.dataset.tilted = '1';
+          card.style.transition = 'transform .18s ease-out, box-shadow .45s ease, border-color .4s ease, background .6s ease';
+        }
+        card.style.transform = 'perspective(900px) rotateX(' + (-py * 6).toFixed(2) + 'deg) rotateY(' + (px * 8).toFixed(2) + 'deg) translateY(-4px)';
       };
+      const move = (ev) => {
+        this._px = ev.clientX; this._py = ev.clientY;
+        applyGlow(ev.clientX, ev.clientY, ev.target);
+      };
+      const resetGlow = () => applyGlow(-9999, -9999, null);
+      // Scrolling shifts cards under a stationary pointer: recompute against the new hit target
+      const onGlowScroll = () => {
+        if (this._px == null) return;
+        applyGlow(this._px, this._py, document.elementFromPoint(this._px, this._py));
+      };
+      // On touch there is no hover: release the glow shortly after the finger lifts
+      const onUp = (ev) => { if (ev.pointerType === 'touch') setTimeout(resetGlow, 650); };
+      // Fast exits can skip pointermove: pointerout with no relatedTarget = cursor left the page
+      const onOut = (ev) => {
+        if (!ev.relatedTarget) { this._px = null; this._py = null; resetGlow(); }
+      };
+      window.addEventListener('blur', resetGlow);
+      document.addEventListener('pointerout', onOut);
+      this._cleanup.push(() => { window.removeEventListener('blur', resetGlow); document.removeEventListener('pointerout', onOut); });
       document.addEventListener('pointermove', move, { passive: true });
-      this._cleanup.push(() => document.removeEventListener('pointermove', move));
+      window.addEventListener('scroll', onGlowScroll, { passive: true });
+      document.documentElement.addEventListener('mouseleave', resetGlow);
+      document.addEventListener('pointerup', onUp);
+      this._cleanup.push(() => {
+        document.removeEventListener('pointermove', move);
+        window.removeEventListener('scroll', onGlowScroll);
+        document.documentElement.removeEventListener('mouseleave', resetGlow);
+        document.removeEventListener('pointerup', onUp);
+      });
     }
 
     // ---- Click ripple ----
     const ripple = (e) => {
       if (this.reducedMotion) return;
+      // Page-wide soft light ripple on every click
+      if (e.clientX || e.clientY) {
+        const pr = document.createElement('div');
+        pr.style.cssText = 'position:fixed;left:' + (e.clientX - 280) + 'px;top:' + (e.clientY - 280) + 'px;width:560px;height:560px;border-radius:50%;pointer-events:none;z-index:94;background:radial-gradient(circle, var(--glow) 0%, transparent 58%);animation:pageRipple .9s ease-out forwards';
+        document.body.appendChild(pr);
+        setTimeout(() => pr.remove(), 950);
+      }
       const t = e.target.closest && e.target.closest('[data-ripple]');
       if (!t) return;
       const r = t.getBoundingClientRect();
@@ -945,6 +1260,31 @@ class Component extends DCLogic {
       this._cleanup.push(() => document.removeEventListener('pointermove', mag));
     }
 
+    // ---- Lantern: press & hold the theme button for 2 s ----
+    const tbtn = document.querySelector('[data-theme-btn]');
+    if (tbtn) {
+      let holdT = null;
+      const cancel = () => {
+        if (holdT) { clearTimeout(holdT); holdT = null; }
+        tbtn.style.animation = '';
+      };
+      tbtn.addEventListener('pointerdown', () => {
+        cancel();
+        tbtn.style.animation = 'holdPulse 2s ease-in forwards';
+        holdT = setTimeout(() => {
+          holdT = null;
+          tbtn.style.animation = '';
+          this._suppressThemeClick = true;
+          this._toggleLantern();
+        }, 2000);
+      });
+      tbtn.addEventListener('pointerup', cancel);
+      tbtn.addEventListener('pointerleave', cancel);
+      tbtn.addEventListener('pointercancel', cancel);
+      tbtn.addEventListener('contextmenu', (e) => e.preventDefault());
+      this._cleanup.push(cancel);
+    }
+
     // ---- Escape closes modal ----
     const onKey = (e) => {
       if (e.key !== 'Escape') return;
@@ -958,6 +1298,8 @@ class Component extends DCLogic {
 
   componentWillUnmount() {
     (this._cleanup || []).forEach((fn) => fn());
+    if (this._fadeTimer) clearInterval(this._fadeTimer);
+    if (this._lanternT) clearTimeout(this._lanternT);
     if (this._audio) { this._audio.pause(); this._audio = null; }
     document.body.style.overflow = '';
   }
