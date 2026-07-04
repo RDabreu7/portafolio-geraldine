@@ -38,7 +38,7 @@ class Visor360 extends HTMLElement {
     this.style.overflow = 'hidden';
     this.style.cursor = 'grab';
 
-    this.yaw = 0; this.pitch = 0; this.gYaw = 0; this.gPitch = 0; this.fov = 75 * Math.PI / 180;
+    this.yaw = 0; this.pitch = 0; this.fov = 75 * Math.PI / 180;
     this.vYaw = 0; this.vPitch = 0;
     this.gyroOn = false; this._gyroRef = null;
     this._dirty = true;
@@ -149,61 +149,27 @@ class Visor360 extends HTMLElement {
   }
 
   _bindPointer() {
-    // Multi-pointer: 1 finger/mouse = drag, 2 fingers = pinch zoom
-    this._pts = new Map();
-    let lx = 0, ly = 0, pinchD = 0, pinchFov = 0;
+    let lx = 0, ly = 0;
     const down = (e) => {
-      this._pts.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      this._dragging = true;
       this.setPointerCapture(e.pointerId);
-      if (this._pts.size === 1) {
-        this._dragging = true;
-        lx = e.clientX; ly = e.clientY;
-        this.vYaw = 0; this.vPitch = 0;
-        this.style.cursor = 'grabbing';
-        if (this._hint) this._hint.style.opacity = '0';
-      } else if (this._pts.size === 2) {
-        const [a, b] = [...this._pts.values()];
-        pinchD = Math.hypot(a.x - b.x, a.y - b.y);
-        pinchFov = this.fov;
-        this._dragging = false;
-        this.vYaw = 0; this.vPitch = 0;
-      }
+      lx = e.clientX; ly = e.clientY;
+      this.vYaw = 0; this.vPitch = 0;
+      this.style.cursor = 'grabbing';
+      if (this._hint) this._hint.style.opacity = '0';
     };
     const move = (e) => {
-      if (!this._pts.has(e.pointerId)) return;
-      this._pts.set(e.pointerId, { x: e.clientX, y: e.clientY });
-      if (this._pts.size >= 2) {
-        const [a, b] = [...this._pts.values()];
-        const d = Math.hypot(a.x - b.x, a.y - b.y);
-        if (pinchD > 0 && d > 0) {
-          this.fov = Math.min(100 * Math.PI / 180, Math.max(40 * Math.PI / 180, pinchFov * pinchD / d));
-          this._dirty = true;
-        }
-        return;
-      }
       if (!this._dragging) return;
       const k = this.fov / this.clientHeight;
       const dYaw = -(e.clientX - lx) * k;
-      const dPitch = -(e.clientY - ly) * k; // drag down -> look down
+      const dPitch = (e.clientY - ly) * k;
       this.yaw += dYaw;
       this.pitch = this._clampPitch(this.pitch + dPitch);
       this.vYaw = dYaw; this.vPitch = dPitch;
       lx = e.clientX; ly = e.clientY;
       this._dirty = true;
     };
-    const up = (e) => {
-      this._pts.delete(e.pointerId);
-      if (this._pts.size === 1) {
-        const [a] = [...this._pts.values()];
-        lx = a.x; ly = a.y;
-        pinchD = 0;
-        this._dragging = true;
-      } else if (this._pts.size === 0) {
-        this._dragging = false;
-        pinchD = 0;
-        this.style.cursor = 'grab';
-      }
-    };
+    const up = () => { this._dragging = false; this.style.cursor = 'grab'; };
     this.addEventListener('pointerdown', down);
     this.addEventListener('pointermove', move);
     this.addEventListener('pointerup', up);
@@ -215,10 +181,6 @@ class Visor360 extends HTMLElement {
       this.gyroOn = false;
       btn.style.background = 'rgba(14,11,22,.45)';
       if (this._gyroHandler) window.removeEventListener('deviceorientation', this._gyroHandler);
-      // Fold the gyro offset into the base view so nothing jumps
-      this.yaw += this.gYaw; this.pitch = this._clampPitch(this.pitch + this.gPitch);
-      this.gYaw = 0; this.gPitch = 0;
-      this._dirty = true;
       return;
     }
     // iOS requires explicit permission
@@ -231,10 +193,9 @@ class Visor360 extends HTMLElement {
     this._gyroHandler = (e) => {
       if (!this.gyroOn || e.alpha == null) return;
       const a = e.alpha * Math.PI / 180, b = e.beta * Math.PI / 180;
-      if (!this._gyroRef) this._gyroRef = { a, b };
-      // Gyro contributes an additive offset, so touch-drag keeps working at the same time
-      this.gYaw = a - this._gyroRef.a;
-      this.gPitch = b - this._gyroRef.b;
+      if (!this._gyroRef) this._gyroRef = { a, b, yaw: this.yaw, pitch: this.pitch };
+      this.yaw = this._gyroRef.yaw + (this._gyroRef.a - a);
+      this.pitch = this._clampPitch(this._gyroRef.pitch + (b - this._gyroRef.b));
       this._dirty = true;
     };
     window.addEventListener('deviceorientation', this._gyroHandler);
@@ -254,8 +215,8 @@ class Visor360 extends HTMLElement {
   _draw() {
     const gl = this.gl;
     if (!gl || !this._ready) return;
-    gl.uniform1f(this.u.yaw, this.yaw + this.gYaw);
-    gl.uniform1f(this.u.pitch, this._clampPitch(this.pitch + this.gPitch));
+    gl.uniform1f(this.u.yaw, this.yaw);
+    gl.uniform1f(this.u.pitch, this.pitch);
     gl.uniform1f(this.u.fov, this.fov);
     gl.uniform1f(this.u.aspect, this.canvas.width / this.canvas.height);
     gl.drawArrays(gl.TRIANGLES, 0, 3);
