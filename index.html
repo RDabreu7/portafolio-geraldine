@@ -36,6 +36,8 @@
   @keyframes preOut{to{opacity:0;filter:blur(12px);transform:scale(1.06);visibility:hidden}}
   @keyframes fadeUp{from{opacity:0;transform:translateY(24px);filter:blur(6px)}to{opacity:1;transform:none;filter:blur(0)}}
   @keyframes briefIn{from{opacity:0;transform:translateY(14px);filter:blur(5px)}to{opacity:1;transform:none;filter:blur(0)}}
+  @keyframes toastIn{from{opacity:0;transform:translateY(14px);filter:blur(5px)}to{opacity:1;transform:none;filter:blur(0)}}
+  @keyframes toastOut{from{opacity:1;transform:none;filter:blur(0)}to{opacity:0;transform:translateY(-10px) scale(.94);filter:blur(6px)}}
   @keyframes holdPulse{0%{transform:scale(1);box-shadow:0 0 0 0 var(--glow)}70%{transform:scale(1.3);box-shadow:0 0 0 12px var(--glow)}100%{transform:scale(1.45);box-shadow:0 0 0 18px transparent}}
   @keyframes letraIn{0%{opacity:0;filter:blur(12px);transform:translateY(12px) rotate(3deg) scale(1.18)}55%{opacity:1;filter:blur(0) drop-shadow(0 0 16px var(--glow));transform:translateY(-2px) rotate(-.5deg) scale(1.02)}100%{opacity:1;filter:blur(0);transform:none}}
   @keyframes trazo{from{transform:scaleX(0);opacity:0}to{transform:scaleX(1);opacity:1}}
@@ -115,7 +117,7 @@
         </sc-if>
       </button>
       <sc-if value="{{ musicAvailable }}" hint-placeholder-val="{{ false }}">
-      <button type="button" onClick="{{ toggleMusic }}" data-ripple aria-label="{{ musicAria }}" title="{{ musicAria }}" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;margin-left:2px;border-radius:999px;border:1px solid var(--line);background:{{ musicBg }};color:{{ musicColor }};cursor:pointer;flex:none;transition:transform .4s,background .3s,color .3s" style-hover="transform:scale(1.1)">
+      <button type="button" onClick="{{ toggleMusic }}" data-music-btn data-ripple aria-label="{{ musicAria }}" title="Mantén presionado 1 s: opciones de sonido" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;margin-left:2px;border-radius:999px;border:1px solid var(--line);background:{{ musicBg }};color:{{ musicColor }};cursor:pointer;flex:none;-webkit-user-select:none;user-select:none;touch-action:manipulation;transition:transform .4s,background .3s,color .3s" style-hover="transform:scale(1.1)">
         <sc-if value="{{ musicOn }}" hint-placeholder-val="{{ false }}">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V6l11-2v12"></path><circle cx="6.5" cy="18" r="2.5"></circle><circle cx="17.5" cy="16" r="2.5"></circle></svg>
         </sc-if>
@@ -125,6 +127,46 @@
       </button>
       </sc-if>
     </nav>
+    <sc-if value="{{ sndPanelOpen }}" hint-placeholder-val="{{ false }}">
+      <div data-snd-panel role="dialog" aria-label="Opciones de sonido" style="position:absolute;top:calc(100% + 10px);right:14px;z-index:120;display:flex;flex-direction:column;gap:12px;padding:16px;min-width:238px;border-radius:20px;background:var(--glass);backdrop-filter:blur(22px) saturate(1.5);-webkit-backdrop-filter:blur(22px) saturate(1.5);border:1px solid var(--line);box-shadow:var(--shadow);animation:briefIn .35s cubic-bezier(.2,.75,.25,1)">
+        <p style="margin:0;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--text2)">Estilo de sonidos</p>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
+          <button type="button" data-estilo="galaxia" onClick="{{ setSndStyle }}" aria-label="Estilo Galaxia" style="display:flex;flex-direction:column;align-items:center;gap:6px;padding:10px 6px;border-radius:14px;border:1.5px solid {{ sndGalaxiaBorde }};background:{{ sndGalaxiaBg }};color:var(--text);cursor:pointer;transition:transform .3s,border-color .3s,background .3s" style-hover="transform:translateY(-2px)">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--accInk)" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.5l2.6 6.2 6.4.5-4.9 4.3 1.5 6.5-5.6-3.5-5.6 3.5 1.5-6.5L3 9.2l6.4-.5z"></path></svg>
+            <span style="font-size:11px;font-weight:700">Galaxia</span>
+          </button>
+          <button type="button" data-estilo="lunar" onClick="{{ setSndStyle }}" aria-label="Estilo Lunar" style="display:flex;flex-direction:column;align-items:center;gap:6px;padding:10px 6px;border-radius:14px;border:1.5px solid {{ sndLunarBorde }};background:{{ sndLunarBg }};color:var(--text);cursor:pointer;transition:transform .3s,border-color .3s,background .3s" style-hover="transform:translateY(-2px)">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="var(--accInk)" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path></svg>
+            <span style="font-size:11px;font-weight:700">Lunar</span>
+          </button>
+          <button type="button" data-estilo="zelda" onClick="{{ setSndStyle }}" aria-label="Estilo Heroico" style="display:flex;flex-direction:column;align-items:center;gap:6px;padding:10px 6px;border-radius:14px;border:1.5px solid {{ sndZeldaBorde }};background:{{ sndZeldaBg }};color:var(--text);cursor:pointer;transition:transform .3s,border-color .3s,background .3s" style-hover="transform:translateY(-2px)">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="var(--accInk)" aria-hidden="true"><path d="M12 2l5 9h-10z"></path><path d="M7 12l5 9-10 0z" opacity=".65"></path><path d="M17 12l5 9-10 0z" opacity=".65"></path></svg>
+            <span style="font-size:11px;font-weight:700">Heroico</span>
+          </button>
+        </div>
+        <div style="height:1px;background:var(--line)"></div>
+        <div style="display:flex;align-items:center;gap:10px;padding:2px 2px 4px">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--accInk)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none"><path d="M11 5 6 9H2v6h4l5 4z"></path><path d="M15.5 8.5a5 5 0 0 1 0 7"></path></svg>
+          <input type="range" min="0" max="1" step="0.01" value="{{ vol }}" onInput="{{ onVol }}" aria-label="Volumen de la música ambiental" style="flex:1;height:4px;accent-color:var(--acc);cursor:pointer">
+          <span style="font-size:11px;font-weight:800;color:var(--text2);min-width:32px;text-align:right">{{ volPct }}</span>
+        </div>
+        <div style="display:flex;gap:8px">
+          <button type="button" onClick="{{ togglePlay }}" aria-label="{{ playAria }}" title="{{ playAria }}" style="flex:none;display:flex;align-items:center;justify-content:center;width:40px;border-radius:12px;border:1px solid var(--line);background:var(--accSoft);color:var(--accInk);cursor:pointer;transition:transform .3s,background .3s" style-hover="transform:translateY(-2px)">
+            <sc-if value="{{ playing }}" hint-placeholder-val="{{ false }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"></rect><rect x="14" y="5" width="4" height="14" rx="1"></rect></svg></sc-if>
+            <sc-if value="{{ musicOff }}" hint-placeholder-val="{{ true }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5.5v13l11-6.5z"></path></svg></sc-if>
+          </button>
+          <button type="button" onClick="{{ nextSong }}" style="flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:10px 8px;border-radius:12px;border:1px solid var(--line);background:var(--accSoft);color:var(--accInk);font-size:12px;font-weight:700;cursor:pointer;transition:transform .3s,background .3s" style-hover="transform:translateY(-2px)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M5 5.5v13l9-6.5z"></path><rect x="16" y="5.5" width="2.6" height="13" rx="1"></rect></svg>
+            Siguiente canción
+          </button>
+          <button type="button" onClick="{{ toggleSounds }}" aria-label="{{ soundsAria }}" title="{{ soundsAria }}" style="flex:none;display:flex;align-items:center;justify-content:center;width:40px;border-radius:12px;border:1px solid var(--line);background:{{ soundsBg }};color:var(--accInk);cursor:pointer;transition:transform .3s,background .3s" style-hover="transform:translateY(-2px)">
+            <sc-if value="{{ soundsOnV }}" hint-placeholder-val="{{ true }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.2 5.6L20 11l-5.8 2.4L12 19l-2.2-5.6L4 11l5.8-2.4z"></path></svg></sc-if>
+            <sc-if value="{{ soundsOffV }}" hint-placeholder-val="{{ false }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.2 5.6L20 11l-5.8 2.4L12 19l-2.2-5.6L4 11l5.8-2.4z"></path><path d="M3 3l18 18"></path></svg></sc-if>
+          </button>
+        </div>
+        <p style="margin:0;font-size:10.5px;line-height:1.5;color:var(--text2)">El ícono de música solo silencia la música ambiental; el destello, los sonidos interactivos.</p>
+      </div>
+    </sc-if>
   </div>
 
   <!-- ============ SOBRE MÍ ============ -->
@@ -414,30 +456,47 @@
     </div>
   </footer>
 
+  <!-- ============ AVISO DE CANCIÓN ============ -->
+  <sc-if value="{{ songToast }}" hint-placeholder-val="{{ false }}">
+    <div aria-live="polite" style="position:fixed;left:0;right:0;bottom:24px;z-index:160;display:flex;justify-content:center;pointer-events:none">
+      <div style="display:flex;align-items:center;gap:9px;padding:8px 16px;border-radius:999px;background:var(--glass);backdrop-filter:blur(16px) saturate(1.4);-webkit-backdrop-filter:blur(16px) saturate(1.4);border:1px solid var(--line);box-shadow:var(--shadow);animation:{{ toastAnim }}">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--accInk)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="opacity:.8"><path d="M9 18V6l11-2v12"></path><circle cx="6.5" cy="18" r="2.5"></circle><circle cx="17.5" cy="16" r="2.5"></circle></svg>
+        <span style="font-size:11.5px;font-weight:600;color:var(--text2)">{{ songTitle }}</span>
+      </div>
+    </div>
+  </sc-if>
+
   <!-- ============ MODAL PROYECTO ============ -->
   <sc-if value="{{ modalVisible }}" hint-placeholder-val="{{ false }}">
     <div onClick="{{ onBackdrop }}" style="position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;padding:clamp(12px,3vw,32px);background:rgba(12,9,20,.5);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);animation:{{ bkAnim }}">
       <div role="dialog" aria-modal="true" aria-label="{{ mTitle }}" data-modal-scroll style="position:relative;width:100%;max-width:840px;max-height:88vh;overflow-y:auto;scrollbar-width:none;background:var(--card);border:1px solid var(--line);border-radius:26px;box-shadow:var(--shadow);animation:{{ mAnim }}">
+        <div style="position:sticky;top:0;height:0;z-index:8">
+          <sc-if value="{{ mGalGyro }}" hint-placeholder-val="{{ false }}">
+            <button type="button" onClick="{{ galGyro }}" aria-label="Activar giroscopio" title="Giroscopio" style="position:absolute;top:14px;right:106px;display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:999px;border:1px solid rgba(255,255,255,.3);background:rgba(14,11,22,.45);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:#fff;cursor:pointer;transition:transform .3s,background .3s" style-hover="transform:scale(1.12)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="3"></circle><ellipse cx="12" cy="12" rx="10" ry="4.2"></ellipse><ellipse cx="12" cy="12" rx="10" ry="4.2" transform="rotate(60 12 12)"></ellipse></svg>
+            </button>
+          </sc-if>
+          <button type="button" onClick="{{ openBig }}" aria-label="Ver en grande" title="Ver en grande" style="position:absolute;top:14px;right:60px;display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:999px;border:1px solid rgba(255,255,255,.3);background:rgba(14,11,22,.45);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:#fff;cursor:pointer;transition:transform .3s,background .3s" style-hover="transform:scale(1.12);background:rgba(14,11,22,.7)">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3"></path><path d="M16 3h3a2 2 0 0 1 2 2v3"></path><path d="M8 21H5a2 2 0 0 1-2-2v-3"></path><path d="M16 21h3a2 2 0 0 0 2-2v-3"></path></svg>
+          </button>
+          <button type="button" data-modal-close onClick="{{ closeModal }}" aria-label="Cerrar" style="position:absolute;top:14px;right:14px;display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:999px;border:1px solid rgba(255,255,255,.3);background:rgba(14,11,22,.45);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:#fff;cursor:pointer;transition:transform .3s,background .3s" style-hover="transform:rotate(90deg);background:rgba(14,11,22,.7)">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+          </button>
+        </div>
         <div style="position:relative;background:#0e0b16">
           <div data-gal-main style="position:relative;width:100%;height:clamp(230px,40vh,390px)"></div>
           <sc-if value="{{ mGalZones }}" hint-placeholder-val="{{ false }}">
-            <button type="button" onClick="{{ galPrev }}" aria-label="Foto anterior" style="position:absolute;left:0;top:0;bottom:0;width:32%;z-index:3;display:flex;align-items:center;justify-content:flex-start;padding:0 0 0 14px;border:0;background:linear-gradient(90deg,rgba(10,8,18,.32),transparent);cursor:pointer;opacity:.45;transition:opacity .3s ease" style-hover="opacity:1" style-active="opacity:1">
+            <button type="button" onClick="{{ galPrev }}" aria-label="Foto anterior" style="position:absolute;left:0;top:0;bottom:0;width:32%;z-index:3;display:flex;align-items:center;justify-content:flex-start;padding:0 0 0 14px;border:0;background:linear-gradient(90deg,rgba(10,8,18,.32),transparent);cursor:pointer;opacity:{{ mPrevOp }};transition:opacity .45s ease">
               <span style="display:flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:999px;background:rgba(14,11,22,.5);border:1px solid rgba(255,255,255,.3);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:#fff">
                 <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg>
               </span>
             </button>
-            <button type="button" onClick="{{ galNext }}" aria-label="Foto siguiente" style="position:absolute;right:0;top:0;bottom:0;width:32%;z-index:3;display:flex;align-items:center;justify-content:flex-end;padding:0 14px 0 0;border:0;background:linear-gradient(270deg,rgba(10,8,18,.32),transparent);cursor:pointer;opacity:.45;transition:opacity .3s ease" style-hover="opacity:1" style-active="opacity:1">
+            <button type="button" onClick="{{ galNext }}" aria-label="Foto siguiente" style="position:absolute;right:0;top:0;bottom:0;width:32%;z-index:3;display:flex;align-items:center;justify-content:flex-end;padding:0 14px 0 0;border:0;background:linear-gradient(270deg,rgba(10,8,18,.32),transparent);cursor:pointer;opacity:{{ mNextOp }};transition:opacity .45s ease">
               <span style="display:flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:999px;background:rgba(14,11,22,.5);border:1px solid rgba(255,255,255,.3);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:#fff">
                 <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg>
               </span>
             </button>
           </sc-if>
-          <button type="button" onClick="{{ openBig }}" aria-label="Ver en grande" title="Ver en grande" style="position:absolute;top:14px;right:60px;z-index:6;display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:999px;border:1px solid rgba(255,255,255,.3);background:rgba(14,11,22,.45);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:#fff;cursor:pointer;transition:transform .3s,background .3s" style-hover="transform:scale(1.12);background:rgba(14,11,22,.7)">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3"></path><path d="M16 3h3a2 2 0 0 1 2 2v3"></path><path d="M8 21H5a2 2 0 0 1-2-2v-3"></path><path d="M16 21h3a2 2 0 0 0 2-2v-3"></path></svg>
-          </button>
-          <button type="button" data-modal-close onClick="{{ closeModal }}" aria-label="Cerrar" style="z-index:6;position:absolute;top:14px;right:14px;display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:999px;border:1px solid rgba(255,255,255,.3);background:rgba(14,11,22,.45);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:#fff;cursor:pointer;transition:transform .3s,background .3s" style-hover="transform:rotate(90deg);background:rgba(14,11,22,.7)">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
-          </button>
         </div>
         <div style="padding:6px clamp(22px,4vw,40px) clamp(26px,4vw,40px)">
           <sc-if value="{{ mGalMulti }}" hint-placeholder-val="{{ false }}">
@@ -488,12 +547,12 @@
     <div style="position:fixed;inset:0;z-index:300;background:rgba(8,6,14,.9);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);animation:bIn .35s ease">
       <div data-gal-big style="position:absolute;inset:clamp(8px,3vw,44px);animation:gIn .55s cubic-bezier(.2,.75,.25,1)"></div>
       <sc-if value="{{ mGalZones }}" hint-placeholder-val="{{ false }}">
-        <button type="button" onClick="{{ galPrev }}" aria-label="Foto anterior" style="position:absolute;left:0;top:0;bottom:0;width:24%;z-index:4;display:flex;align-items:center;justify-content:flex-start;padding:0 0 0 18px;border:0;background:linear-gradient(90deg,rgba(8,6,14,.4),transparent);cursor:pointer;opacity:.45;transition:opacity .3s ease" style-hover="opacity:1" style-active="opacity:1">
+        <button type="button" onClick="{{ galPrev }}" aria-label="Foto anterior" style="position:absolute;left:0;top:0;bottom:0;width:24%;z-index:4;display:flex;align-items:center;justify-content:flex-start;padding:0 0 0 18px;border:0;background:linear-gradient(90deg,rgba(8,6,14,.4),transparent);cursor:pointer;opacity:{{ mPrevOp }};transition:opacity .45s ease">
           <span style="display:flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:999px;background:rgba(14,11,22,.5);border:1px solid rgba(255,255,255,.3);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:#fff">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg>
           </span>
         </button>
-        <button type="button" onClick="{{ galNext }}" aria-label="Foto siguiente" style="position:absolute;right:0;top:0;bottom:0;width:24%;z-index:4;display:flex;align-items:center;justify-content:flex-end;padding:0 18px 0 0;border:0;background:linear-gradient(270deg,rgba(8,6,14,.4),transparent);cursor:pointer;opacity:.45;transition:opacity .3s ease" style-hover="opacity:1" style-active="opacity:1">
+        <button type="button" onClick="{{ galNext }}" aria-label="Foto siguiente" style="position:absolute;right:0;top:0;bottom:0;width:24%;z-index:4;display:flex;align-items:center;justify-content:flex-end;padding:0 18px 0 0;border:0;background:linear-gradient(270deg,rgba(8,6,14,.4),transparent);cursor:pointer;opacity:{{ mNextOp }};transition:opacity .45s ease">
           <span style="display:flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:999px;background:rgba(14,11,22,.5);border:1px solid rgba(255,255,255,.3);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:#fff">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg>
           </span>
@@ -528,13 +587,9 @@
   </sc-if>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{
-  &quot;acento&quot;: {&quot;editor&quot;: &quot;color&quot;, &quot;default&quot;: &quot;#8b5cf6&quot;, &quot;options&quot;: [&quot;#8b5cf6&quot;, &quot;#c2703d&quot;, &quot;#3e7c59&quot;, &quot;#2a6fdb&quot;], &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Tema&quot;},
-  &quot;temaInicial&quot;: {&quot;editor&quot;: &quot;enum&quot;, &quot;default&quot;: &quot;claro&quot;, &quot;options&quot;: [&quot;claro&quot;, &quot;oscuro&quot;], &quot;tsType&quot;: &quot;'claro' | 'oscuro'&quot;, &quot;section&quot;: &quot;Tema&quot;},
-  &quot;videoReel&quot;: {&quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;assets/videos/reel.mp4&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Contenido&quot;}
-}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;acento&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#8b5cf6&quot;,&quot;options&quot;:[&quot;#8b5cf6&quot;,&quot;#c2703d&quot;,&quot;#3e7c59&quot;,&quot;#2a6fdb&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Tema&quot;},&quot;temaInicial&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;claro&quot;,&quot;options&quot;:[&quot;claro&quot;,&quot;oscuro&quot;],&quot;tsType&quot;:&quot;'claro' | 'oscuro'&quot;,&quot;section&quot;:&quot;Tema&quot;},&quot;estiloSonido&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;galaxia&quot;,&quot;options&quot;:[&quot;galaxia&quot;,&quot;lunar&quot;],&quot;tsType&quot;:&quot;'galaxia' | 'lunar'&quot;,&quot;section&quot;:&quot;Tema&quot;},&quot;videoReel&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;assets/videos/reel.mp4&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Contenido&quot;}}">
 class Component extends DCLogic {
-  state = { isDark: false, modal: null, closing: false, galIdx: 0, big: false, skill: null, musicOn: false, musicAvailable: false, bioIdx: 0, visitas: null, pre: 'run', preN: 0, heroIdx: 0, lantern: false, lanternToast: false, brief: { paso: 1, espacio: '', estilo: '', inicio: '' } };
+  state = { isDark: false, modal: null, closing: false, galIdx: 0, big: false, skill: null, galFlash: null, musicOn: false, musicAvailable: false, soundsOn: true, sndPanel: false, sndStyle: 'galaxia', songToast: false, songTitle: '', vol: 0.25, playing: false, bioIdx: 0, visitas: null, pre: 'run', preN: 0, heroIdx: 0, lantern: false, lanternToast: false, brief: { paso: 1, espacio: '', estilo: '', inicio: '' } };
 
   _heroWords = ['Creo experiencias.', 'Creo armonía.', 'Creo bienestar.', 'Creo historias.'];
   _preLetras = 'Geraldine Olivar'.split('');
@@ -555,7 +610,54 @@ class Component extends DCLogic {
 
   _bioList = ['assets/images/bio/bio-1.jpg', 'assets/images/bio/bio-2.jpg', 'assets/images/bio/bio-3.jpg', 'assets/images/bio/bio-4.jpg', 'assets/images/bio/bio-5.jpg'];
 
-  _musicSrcs = ['assets/audio/musica.mp3'];
+  // Ambient playlist — auto-discovered from assets/audio/lista.json (a plain
+  // list of mp3 filenames). Add/remove a line there = add/remove a song; no
+  // code changes needed. Fallback below only if the list is missing.
+  _playlist = [
+    { src: 'assets/audio/thank-u-next.mp3', titulo: 'thank u next' }
+  ];
+
+  get _MAX_VOL() { return this.state.vol; }
+
+  // Prettifies a filename into a display title
+  _pretty(file) {
+    return file.replace(/\.mp3$/i, '').replace(/[-_]+/g, ' ').replace(/\s+/g, ' ').trim();
+  }
+
+  // Loads the playlist manifest; silent fallback keeps the current list
+  async _loadPlaylist() {
+    try {
+      const r = await fetch('assets/audio/lista.json', { cache: 'no-store' });
+      if (!r.ok) return;
+      const arr = await r.json();
+      if (Array.isArray(arr) && arr.length) {
+        this._playlist = arr
+          .filter((f) => typeof f === 'string' && /\.mp3$/i.test(f))
+          .map((f) => ({ src: 'assets/audio/' + f, titulo: this._pretty(f) }));
+        this._orderBag = null;
+      }
+    } catch (e) {}
+  }
+
+  // Draws the next track index from a shuffled bag (refilled when empty)
+  _drawSong() {
+    if (!this._orderBag || !this._orderBag.length) {
+      this._orderBag = this._playlist.map((_, i) => i).sort(() => Math.random() - 0.5);
+      // never repeat the track that just finished back-to-back
+      if (this._orderBag.length > 1 && this._orderBag[0] === this._songIdx) this._orderBag.push(this._orderBag.shift());
+    }
+    return this._orderBag.shift();
+  }
+
+  // Subtle toast with the now-playing title
+  _announceSong(titulo) {
+    this.setState({ songTitle: titulo, songToast: true, toastPhase: 'in' });
+    if (this._songToastT) clearTimeout(this._songToastT);
+    if (this._songToastT2) clearTimeout(this._songToastT2);
+    // Play the exit animation, THEN unmount
+    this._songToastT = setTimeout(() => this.setState({ toastPhase: 'out' }), 4500);
+    this._songToastT2 = setTimeout(() => this.setState({ songToast: false }), 5100);
+  }
 
   // Real project galleries. Local file first; videos fall back to Drive streaming.
   _buildGals() {
@@ -620,8 +722,9 @@ class Component extends DCLogic {
       isDark: this.state.isDark,
       isLight: !this.state.isDark,
       toggleTheme: () => {
-        // A completed 2s hold (lantern) must not also flip the theme on release
-        if (this._suppressThemeClick) { this._suppressThemeClick = false; return; }
+        // A completed hold (lantern) must not also flip the theme on release.
+        // Time-window instead of a sticky flag so a missed click can't jam it.
+        if (Date.now() - (this._holdThemeAt || 0) < 700) return;
         this.setTheme(!this.state.isDark);
       },
       modalVisible: this.state.modal != null,
@@ -639,8 +742,15 @@ class Component extends DCLogic {
       })),
       mGalMulti: gal.length > 1,
       mGalZones: gal.length > 1 && !!cur && cur.tipo === 'imagen',
-      galPrev: () => this._galNav(-1),
-      galNext: () => this._galNav(1),
+      mGalGyro: !!cur && cur.tipo === '360' && !!this._gyroCapable,
+      galGyro: (e) => {
+        const v = document.querySelector(this.state.big ? '[data-gal-big] visor-360' : '[data-gal-main] visor-360');
+        if (v && v._toggleGyro) v._toggleGyro(e.currentTarget);
+      },
+      mPrevOp: this.state.galFlash === 'prev' ? '1' : '0',
+      mNextOp: this.state.galFlash === 'next' ? '1' : '0',
+      galPrev: () => { this._galNav(-1); this._flashZone('prev'); },
+      galNext: () => { this._galNav(1); this._flashZone('next'); },
       bigVisible: this.state.big,
       openBig: () => this.setState({ big: true }),
       closeBig: () => this.setState({ big: false }),
@@ -673,10 +783,38 @@ class Component extends DCLogic {
       musicAvailable: this.state.musicAvailable,
       musicOn: this.state.musicOn,
       musicOff: !this.state.musicOn,
-      musicAria: this.state.musicOn ? 'Desactivar música de fondo' : 'Activar música de fondo',
+      musicAria: this.state.musicOn ? 'Silenciar la música ambiental' : 'Activar la música ambiental',
       musicBg: this.state.musicOn ? 'var(--acc)' : 'var(--accSoft)',
       musicColor: this.state.musicOn ? '#ffffff' : 'var(--accInk)',
-      toggleMusic: () => this.setMusic(!this.state.musicOn),
+      toggleMusic: () => {
+        // A completed hold (sound panel) must not also toggle on release.
+        // Time-window instead of a sticky flag so a missed click can't jam it.
+        if (Date.now() - (this._holdMusicAt || 0) < 700) return;
+        this.setMusic(!this.state.musicOn); // ambient music ONLY
+      },
+      sndPanelOpen: this.state.sndPanel,
+      songToast: this.state.songToast,
+      songTitle: this.state.songTitle,
+      toastAnim: this.state.toastPhase === 'out' ? 'toastOut .55s cubic-bezier(.4,0,.7,.3) forwards' : 'toastIn .7s cubic-bezier(.2,.75,.25,1)',
+      vol: this.state.vol,
+      volPct: Math.round(this.state.vol * 100) + '%',
+      onVol: (e) => this._setVol(parseFloat(e.target.value)),
+      playing: this.state.musicOn,
+      playAria: this.state.musicOn ? 'Pausar música' : 'Reproducir música',
+      togglePlay: () => this.setMusic(!this.state.musicOn),
+      sndGalaxiaBorde: this.state.sndStyle === 'galaxia' ? 'var(--acc)' : 'var(--line)',
+      sndGalaxiaBg: this.state.sndStyle === 'galaxia' ? 'var(--accSoft)' : 'transparent',
+      sndLunarBorde: this.state.sndStyle === 'lunar' ? 'var(--acc)' : 'var(--line)',
+      sndLunarBg: this.state.sndStyle === 'lunar' ? 'var(--accSoft)' : 'transparent',
+      sndZeldaBorde: this.state.sndStyle === 'zelda' ? 'var(--acc)' : 'var(--line)',
+      sndZeldaBg: this.state.sndStyle === 'zelda' ? 'var(--accSoft)' : 'transparent',
+      setSndStyle: (e) => this._setSndStyle(e.currentTarget.dataset.estilo),
+      nextSong: () => this._nextSong(),
+      soundsOnV: this.state.soundsOn,
+      soundsOffV: !this.state.soundsOn,
+      soundsAria: this.state.soundsOn ? 'Silenciar sonidos interactivos' : 'Activar sonidos interactivos',
+      soundsBg: this.state.soundsOn ? 'var(--accSoft)' : 'transparent',
+      toggleSounds: () => this._setSounds(!this.state.soundsOn),
       preLetras: this._preLetras.map((c, i) => ({
         ch: c,
         op: i < this.state.preN ? '1' : '0',
@@ -733,55 +871,113 @@ class Component extends DCLogic {
   _ensureAudio() {
     if (this._audio) return this._audio;
     const a = new Audio();
-    a.loop = true;
-    a.volume = 0; // starts silent; setMusic fades it up to MAX_VOL
-    this._musicIdx = 0;
-    a.src = this._musicSrcs[0];
-    a.addEventListener('error', () => {
-      this._musicIdx++;
-      if (this._musicIdx < this._musicSrcs.length) {
-        a.src = this._musicSrcs[this._musicIdx];
-        if (this.state.musicOn) a.play().catch(() => { this._pendingPlay = true; });
-      }
+    a.loop = false; // playlist advances on its own
+    a.volume = 0;   // starts silent; setMusic fades it up to MAX_VOL
+    this._songIdx = this._drawSong();
+    a.src = this._playlist[this._songIdx].src;
+    a.addEventListener('error', () => { if (this.state.musicOn) this._nextSong(true); });
+    a.addEventListener('ended', () => { if (this.state.musicOn) this._nextSong(true); });
+    // Smooth handoff: ease the volume down over the last ~2.5 s of each track
+    a.addEventListener('timeupdate', () => {
+      if (!this.state.musicOn || !isFinite(a.duration) || !a.duration) return;
+      const rest = a.duration - a.currentTime;
+      if (rest < 2.5 && !this._endFade) { this._endFade = true; this._fadeTo(0.02, null, 2200); }
     });
     this._audio = a;
     return a;
   }
 
-  // Smoothly ramps the audio volume; pauses at the end when target is 0
-  _fadeTo(target, done) {
+  // Smoothly ramps the audio volume over durMs; runs done() at the end
+  _fadeTo(target, done, durMs = 1200) {
     const a = this._audio;
     if (!a) return;
     if (this._fadeTimer) { clearInterval(this._fadeTimer); this._fadeTimer = null; }
+    const step = Math.max(0.004, Math.abs(target - a.volume) / Math.max(1, durMs / 45));
     this._fadeTimer = setInterval(() => {
       const diff = target - a.volume;
-      if (Math.abs(diff) <= 0.028) {
+      if (Math.abs(diff) <= step) {
         a.volume = target;
         clearInterval(this._fadeTimer); this._fadeTimer = null;
         if (done) done();
         return;
       }
-      a.volume = Math.min(1, Math.max(0, a.volume + Math.sign(diff) * 0.028));
-    }, 45); // ~1.2 s for a full ramp
+      a.volume = Math.min(1, Math.max(0, a.volume + Math.sign(diff) * step));
+    }, 45);
+  }
+
+  // Live ambient-volume control (also the ceiling for fades)
+  _setVol(v) {
+    v = Math.min(1, Math.max(0, v));
+    this.setState({ vol: v });
+    try { localStorage.setItem('go-vol', String(v)); } catch (e) {}
+    const a = this._audio;
+    if (a && this.state.musicOn && !this._endFade) {
+      if (this._fadeTimer) { clearInterval(this._fadeTimer); this._fadeTimer = null; }
+      a.volume = v;
+    }
+  }
+
+  _setSounds(on, persist = true) {
+    this.setState({ soundsOn: on });
+    if (window.SonidosUI) window.SonidosUI.enabled = on;
+    if (persist) { try { localStorage.setItem('go-sonidos', on ? 'on' : 'off'); } catch (e) {} }
+  }
+
+  _setSndStyle(name, persist = true) {
+    this.setState({ sndStyle: name });
+    if (window.SonidosUI) window.SonidosUI.setVariante(name);
+    try { localStorage.setItem('go-snd-estilo', name); } catch (e) {}
+    // Audible preview of the chosen palette
+    setTimeout(() => this._snd('open'), 60);
+  }
+
+  // Advances to the next bag track; auto=true when a song ends by itself
+  _nextSong(auto = false) {
+    const a = this._ensureAudio();
+    const go = () => {
+      this._endFade = false;
+      this._songIdx = this._drawSong();
+      const s = this._playlist[this._songIdx];
+      a.src = s.src;
+      if (this.state.musicOn) {
+        a.volume = 0;
+        a.play().then(() => this._fadeTo(this._MAX_VOL, null, 2000)).catch(() => { this._pendingPlay = true; });
+        this._announceSong(s.titulo);
+      }
+    };
+    if (!auto && this.state.musicOn && !a.paused) this._fadeTo(0, go, 600);
+    else go();
+    if (!auto) this._snd('tick', 1);
   }
 
   setMusic(on, persist = true) {
-    const MAX_VOL = 0.75;
+    const MAX_VOL = this._MAX_VOL;
     this.setState({ musicOn: on });
     if (persist) { try { localStorage.setItem('go-musica', on ? 'on' : 'off'); } catch (e) {} }
     const a = this._ensureAudio();
     this._pendingPlay = false;
     if (on) {
       if (a.paused) a.volume = 0;
-      a.play().then(() => this._fadeTo(MAX_VOL)).catch(() => { this._pendingPlay = true; });
+      // First-ever ramp is a slow 5 s welcome; later toggles are quicker
+      const dur = this._firstFadeDone ? 1200 : 5000;
+      a.play().then(() => {
+        this._firstFadeDone = true;
+        this._fadeTo(MAX_VOL, null, dur);
+        this._announceSong(this._playlist[this._songIdx].titulo);
+      }).catch(() => { this._pendingPlay = true; });
     } else {
-      this._fadeTo(0, () => a.pause());
+      // Hard-stop guarantee: fade down, then pause; if a play() promise resolves
+      // late and restarts it, the guard pauses it again.
+      this._pendingPlay = false;
+      this._fadeTo(0, () => { a.pause(); a.volume = 0; });
+      setTimeout(() => { if (!this.state.musicOn && !a.paused) { a.pause(); a.volume = 0; } }, 1600);
     }
   }
 
   // Lantern mode: dark spotlight that follows the pointer (double-click the theme button)
   _toggleLantern() {
     const on = !this.state.lantern;
+    if (on) this._snd('lantern');
     if (on && !this.state.isDark) this.setTheme(true);
     this.setState({ lantern: on, lanternToast: on });
     if (this._lanternT) clearTimeout(this._lanternT);
@@ -803,7 +999,14 @@ class Component extends DCLogic {
     requestAnimationFrame(grow);
   }
 
+  // Safe accessor for the UI sound engine (may not be loaded yet)
+  _snd(fn, ...args) {
+    const s = window.SonidosUI;
+    if (s && typeof s[fn] === 'function') { try { s[fn](...args); } catch (e) {} }
+  }
+
   setTheme(dark, persist = true) {
+    this._snd('theme', dark);
     this.setState({ isDark: dark });
     document.body.classList.toggle('dark', dark);
     if (persist) { try { localStorage.setItem('go-theme', dark ? 'oscuro' : 'claro'); } catch (e) {} }
@@ -815,10 +1018,18 @@ class Component extends DCLogic {
     return this._gals[p.slug] || [{ tipo: 'imagen', src: p.img }];
   }
 
+  // Briefly shows the pressed nav zone (declarative, so re-renders can't cancel it)
+  _flashZone(dir) {
+    this.setState({ galFlash: dir });
+    clearTimeout(this._zoneT);
+    this._zoneT = setTimeout(() => this.setState({ galFlash: null }), 750);
+  }
+
   // Cycles the gallery with wrap-around
   _galNav(dir) {
     const p = this.state.modal != null ? this.projects[this.state.modal] : null;
     if (!p) return;
+    this._snd('tick', dir);
     const n = this._gal(p).length;
     this.setState((s) => ({ galIdx: (s.galIdx + dir + n) % n }));
   }
@@ -875,6 +1086,7 @@ class Component extends DCLogic {
       import('./assets/js/visor360.js').then(() => {
         if (holder.dataset.cur !== key || !holder.isConnected) return;
         const pv = document.createElement('visor-360');
+        pv.setAttribute('no-gyro-btn', '');
         pv.setAttribute('src', item.src);
         pv.style.cssText = 'position:absolute;inset:0';
         holder.appendChild(pv);
@@ -901,6 +1113,7 @@ class Component extends DCLogic {
   }
 
   openModal(idx) {
+    this._snd('open');
     this.setState({ modal: idx, closing: false, galIdx: 0 });
     document.body.style.overflow = 'hidden';
     setTimeout(() => { const b = document.querySelector('[data-modal-close]'); if (b) b.focus(); }, 80);
@@ -908,6 +1121,7 @@ class Component extends DCLogic {
 
   closeModal() {
     if (this.state.modal == null || this.state.closing) return;
+    this._snd('close');
     if (this.reducedMotion) {
       this.setState({ modal: null, closing: false, big: false });
       document.body.style.overflow = '';
@@ -922,6 +1136,7 @@ class Component extends DCLogic {
 
   componentDidMount() {
     this.reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    this._gyroCapable = typeof DeviceOrientationEvent !== 'undefined' && ('ontouchstart' in window || typeof DeviceOrientationEvent.requestPermission === 'function');
     this._cleanup = [];
 
     // ---- Theme: saved preference > prop > light ----
@@ -952,18 +1167,37 @@ class Component extends DCLogic {
     }
 
     // ---- Background music: only offered when the local file exists ----
-    fetch(this._musicSrcs[0], { method: 'HEAD' }).then((r) => {
-      if (!r.ok) return;
+    try {
+      const sv = parseFloat(localStorage.getItem('go-vol'));
+      if (!isNaN(sv)) this.setState({ vol: Math.min(1, Math.max(0, sv)) });
+    } catch (e) {}
+    this._loadPlaylist().then(() => {
+      return fetch(this._playlist[0].src, { method: 'HEAD' });
+    }).then((r) => {
+      if (!r || !r.ok) return;
       this.setState({ musicAvailable: true });
       let musicSaved = null;
       try { musicSaved = localStorage.getItem('go-musica'); } catch (e) {}
       if (musicSaved !== 'off') this.setMusic(true, false);
     }).catch(() => {});
+
+    // ---- Restore sound prefs (UI sounds + palette) ----
+    try {
+      const s = localStorage.getItem('go-sonidos');
+      if (s === 'off') this._setSounds(false, false);
+      const est = localStorage.getItem('go-snd-estilo');
+      if (est) this.setState({ sndStyle: est });
+    } catch (e) {}
     const gesture = () => {
       if (this._pendingPlay && this.state.musicOn && this._audio) {
         this._pendingPlay = false;
         this._audio.volume = 0;
-        this._audio.play().then(() => this._fadeTo(0.75)).catch(() => {});
+        const dur = this._firstFadeDone ? 1200 : 5000;
+        this._audio.play().then(() => {
+          this._firstFadeDone = true;
+          this._fadeTo(this._MAX_VOL, null, dur);
+          this._announceSong(this._playlist[this._songIdx].titulo);
+        }).catch(() => {});
       }
     };
     document.addEventListener('pointerdown', gesture);
@@ -1023,8 +1257,10 @@ class Component extends DCLogic {
     {
       const v = document.createElement('video');
       v.src = src;
-      v.muted = true; v.loop = true; v.autoplay = true; v.playsInline = true;
-      v.setAttribute('playsinline', ''); v.setAttribute('aria-hidden', 'true');
+      v.muted = true; v.defaultMuted = true; v.volume = 0; v.loop = true; v.autoplay = true; v.playsInline = true;
+      v.setAttribute('muted', ''); v.setAttribute('playsinline', ''); v.setAttribute('aria-hidden', 'true');
+      // The banner must NEVER emit sound — re-mute if anything unmutes it
+      v.addEventListener('volumechange', () => { if (!v.muted || v.volume > 0) { v.muted = true; v.volume = 0; } });
       v.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .9s ease';
       v.addEventListener('error', () => v.remove());
       v.addEventListener('loadeddata', () => { v.style.opacity = '1'; });
@@ -1147,9 +1383,9 @@ class Component extends DCLogic {
           if (c === card) return;
           // Ancestor cards keep their glow/tilt while the pointer is on an inner button
           if (card && c.contains(card)) return;
-          const l = c.querySelector('[data-glowlayer]');
+          const l = c.querySelector(':scope > [data-glowlayer]');
           if (l) l.style.opacity = '0';
-          const rm = c.querySelector('[data-rim]');
+          const rm = c.querySelector(':scope > [data-rim]');
           if (rm) rm.style.opacity = '0';
           if (c.dataset.tilted) {
             c.style.transform = '';
@@ -1159,13 +1395,13 @@ class Component extends DCLogic {
         });
         if (!card) return;
         const r = card.getBoundingClientRect();
-        const layer = card.querySelector('[data-glowlayer]');
+        const layer = card.querySelector(':scope > [data-glowlayer]');
         if (layer) {
           layer.style.opacity = '1';
           layer.style.background = 'radial-gradient(320px circle at ' + (cx - r.left) + 'px ' + (cy - r.top) + 'px, var(--glow), transparent 65%)';
         }
         // Liquid-glass rim: an illuminated border ring that follows the pointer
-        let rim = card.querySelector('[data-rim]');
+        let rim = card.querySelector(':scope > [data-rim]');
         if (!rim) {
           rim = document.createElement('div');
           rim.setAttribute('data-rim', '');
@@ -1218,6 +1454,8 @@ class Component extends DCLogic {
 
     // ---- Click ripple ----
     const ripple = (e) => {
+      // Crystal pluck on real interactive targets
+      if (e.target.closest && e.target.closest('[data-ripple], a, button')) this._snd('click');
       if (this.reducedMotion) return;
       // Page-wide soft light ripple on every click
       if (e.clientX || e.clientY) {
@@ -1260,6 +1498,27 @@ class Component extends DCLogic {
       this._cleanup.push(() => document.removeEventListener('pointermove', mag));
     }
 
+    // ---- Lunar UI sounds: load engine + hover shimmer on cards ----
+    const sndScript = document.createElement('script');
+    sndScript.src = 'assets/js/sonidos.js';
+    sndScript.onload = () => {
+      if (!window.SonidosUI) return;
+      window.SonidosUI.setVariante(this.state.sndStyle || this.props.estiloSonido || 'galaxia');
+      window.SonidosUI.enabled = this.state.soundsOn;
+    };
+    document.head.appendChild(sndScript);
+    const hoverSnd = (e) => {
+      const t = e.target;
+      if (!t || !t.closest) return;
+      const card = t.closest('[data-glow], [data-nav]');
+      if (!card) return;
+      // Only fire when ENTERING the card (not moving between its children)
+      if (e.relatedTarget && card.contains(e.relatedTarget)) return;
+      this._snd('hover');
+    };
+    document.addEventListener('pointerover', hoverSnd, { passive: true });
+    this._cleanup.push(() => document.removeEventListener('pointerover', hoverSnd));
+
     // ---- Lantern: press & hold the theme button for 2 s ----
     const tbtn = document.querySelector('[data-theme-btn]');
     if (tbtn) {
@@ -1274,7 +1533,7 @@ class Component extends DCLogic {
         holdT = setTimeout(() => {
           holdT = null;
           tbtn.style.animation = '';
-          this._suppressThemeClick = true;
+          this._holdThemeAt = Date.now();
           this._toggleLantern();
         }, 2000);
       });
@@ -1284,6 +1543,66 @@ class Component extends DCLogic {
       tbtn.addEventListener('contextmenu', (e) => e.preventDefault());
       this._cleanup.push(cancel);
     }
+
+    // ---- Sound panel: press & hold the music button for 2 s ----
+    // Delegated on document: the button mounts LATER (inside sc-if musicAvailable)
+    // and its subtree re-renders, so direct bindings would be lost.
+    let mHoldT = null, mHeldBtn = null;
+    const mCancel = () => {
+      if (mHoldT) { clearTimeout(mHoldT); mHoldT = null; }
+      if (mHeldBtn) { mHeldBtn.style.animation = ''; mHeldBtn = null; }
+    };
+    const mDown = (e) => {
+      // Also handles click-outside close for the panel
+      if (this.state.sndPanel && e.target.closest && !e.target.closest('[data-snd-panel]') && !e.target.closest('[data-music-btn]')) {
+        this.setState({ sndPanel: false });
+      }
+      const btn = e.target.closest && e.target.closest('[data-music-btn]');
+      if (!btn) return;
+      mCancel();
+      mHeldBtn = btn;
+      btn.style.animation = 'holdPulse 1s ease-in forwards';
+      mHoldT = setTimeout(() => {
+        mHoldT = null;
+        if (mHeldBtn) mHeldBtn.style.animation = '';
+        mHeldBtn = null;
+        this._holdMusicAt = Date.now();
+        this.setState({ sndPanel: true });
+      }, 1000);
+    };
+    const mLeave = (e) => {
+      // Cancel only when the pointer truly exits the button (not moving between its children)
+      if (mHeldBtn && mHeldBtn.contains(e.target) && !(e.relatedTarget && mHeldBtn.contains(e.relatedTarget))) mCancel();
+    };
+    // Hover-to-open (fine pointers): cursor resting on the button 1 s opens the panel
+    let hoverT = null;
+    const mOver = (e) => {
+      if (e.pointerType === 'touch') return;
+      const btn = e.target.closest && e.target.closest('[data-music-btn]');
+      if (!btn || (e.relatedTarget && btn.contains(e.relatedTarget))) return;
+      clearTimeout(hoverT);
+      hoverT = setTimeout(() => this.setState({ sndPanel: true }), 1000);
+    };
+    const mOut = (e) => {
+      const btn = e.target.closest && e.target.closest('[data-music-btn]');
+      if (btn && !(e.relatedTarget && btn.contains(e.relatedTarget))) clearTimeout(hoverT);
+    };
+    document.addEventListener('pointerdown', mDown);
+    document.addEventListener('pointerup', mCancel);
+    document.addEventListener('pointercancel', mCancel);
+    document.addEventListener('pointerout', mLeave, true);
+    document.addEventListener('pointerover', mOver, true);
+    document.addEventListener('pointerout', mOut, true);
+    this._cleanup.push(() => {
+      mCancel();
+      clearTimeout(hoverT);
+      document.removeEventListener('pointerdown', mDown);
+      document.removeEventListener('pointerup', mCancel);
+      document.removeEventListener('pointercancel', mCancel);
+      document.removeEventListener('pointerout', mLeave, true);
+      document.removeEventListener('pointerover', mOver, true);
+      document.removeEventListener('pointerout', mOut, true);
+    });
 
     // ---- Escape closes modal ----
     const onKey = (e) => {
@@ -1300,6 +1619,9 @@ class Component extends DCLogic {
     (this._cleanup || []).forEach((fn) => fn());
     if (this._fadeTimer) clearInterval(this._fadeTimer);
     if (this._lanternT) clearTimeout(this._lanternT);
+    if (this._zoneT) clearTimeout(this._zoneT);
+    if (this._songToastT) clearTimeout(this._songToastT);
+    if (this._songToastT2) clearTimeout(this._songToastT2);
     if (this._audio) { this._audio.pause(); this._audio = null; }
     document.body.style.overflow = '';
   }
